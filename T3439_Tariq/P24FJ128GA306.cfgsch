@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<MCU_DEVICE_FLAGS>
+  <DEVICE>
+    <DEVICE_NAME>P24FJ128GA306</DEVICE_NAME>
+    <DEVICE_CLOCK>16</DEVICE_CLOCK>
+    <SETTINGS>
+      <COUNT>31</COUNT>
+      <SETTING0>
+        <NAME>Deep Sleep Watchdog Timer Postscale</NAME>
+        <DESCRIPTION>1:68719476736 (25.7 Days)</DESCRIPTION>
+      </SETTING0>
+      <SETTING1>
+        <NAME>DSWDT Reference Clock Select</NAME>
+        <DESCRIPTION>DSWDT uses LPRC as reference clock</DESCRIPTION>
+      </SETTING1>
+      <SETTING2>
+        <NAME>Deep Sleep BOR</NAME>
+        <DESCRIPTION>Enabled</DESCRIPTION>
+      </SETTING2>
+      <SETTING3>
+        <NAME>Deep Sleep Watchdog Timer Enable</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING3>
+      <SETTING4>
+        <NAME>DSEN Bit Enable</NAME>
+        <DESCRIPTION>Enabled</DESCRIPTION>
+      </SETTING4>
+      <SETTING5>
+        <NAME>Write Protection Flash Page Segment Boundary</NAME>
+        <DESCRIPTION>Page 127 (0x1FC00)</DESCRIPTION>
+      </SETTING5>
+      <SETTING6>
+        <NAME>VBAT BOR enable bit</NAME>
+        <DESCRIPTION>Enabled</DESCRIPTION>
+      </SETTING6>
+      <SETTING7>
+        <NAME>SOSC Selection</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING7>
+      <SETTING8>
+        <NAME>Watch Dog Timer Window Width</NAME>
+        <DESCRIPTION>Watch Dog Timer Window Width is 25 percent</DESCRIPTION>
+      </SETTING8>
+      <SETTING9>
+        <NAME>Brown-out Reset Enable</NAME>
+        <DESCRIPTION>Enabled</DESCRIPTION>
+      </SETTING9>
+      <SETTING10>
+        <NAME>Segment Write Protection Disable</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING10>
+      <SETTING11>
+        <NAME>Write Protect Configuration Page Select</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING11>
+      <SETTING12>
+        <NAME>Segment Write Protection End Page Select</NAME>
+        <DESCRIPTION>Write Protect from WPFP to the last page of memory</DESCRIPTION>
+      </SETTING12>
+      <SETTING13>
+        <NAME>Primary Oscillator Select</NAME>
+        <DESCRIPTION>HS Oscillator Enabled</DESCRIPTION>
+      </SETTING13>
+      <SETTING14>
+        <NAME>BOR Override bit</NAME>
+        <DESCRIPTION>BOR Enabled [When BOREN=1]</DESCRIPTION>
+      </SETTING14>
+      <SETTING15>
+        <NAME>IOLOCK One-Way Set</NAME>
+        <DESCRIPTION>Enabled</DESCRIPTION>
+      </SETTING15>
+      <SETTING16>
+        <NAME>OSCO Pin Configuration</NAME>
+        <DESCRIPTION>OSCO functions as CLKO (FOSC/2)</DESCRIPTION>
+      </SETTING16>
+      <SETTING17>
+        <NAME>Clock Switching and Fail-Safe Clock Monitor</NAME>
+        <DESCRIPTION>Clock switching and Fail-Safe Clock Monitor are disabled</DESCRIPTION>
+      </SETTING17>
+      <SETTING18>
+        <NAME>Initial Oscillator Select</NAME>
+        <DESCRIPTION>Primary Oscillator (XT, HS, EC)</DESCRIPTION>
+      </SETTING18>
+      <SETTING19>
+        <NAME>Alternate VREF/CVREF Pins Selection</NAME>
+        <DESCRIPTION>Voltage reference input, ADC =RA9/RA10 Comparator =RA9,RA10</DESCRIPTION>
+      </SETTING19>
+      <SETTING20>
+        <NAME>Internal External Switchover</NAME>
+        <DESCRIPTION>Enabled</DESCRIPTION>
+      </SETTING20>
+      <SETTING21>
+        <NAME>Watchdog Timer Postscaler Select</NAME>
+        <DESCRIPTION>1:32,768</DESCRIPTION>
+      </SETTING21>
+      <SETTING22>
+        <NAME>WDT Prescaler Ratio Select</NAME>
+        <DESCRIPTION>1:128</DESCRIPTION>
+      </SETTING22>
+      <SETTING23>
+        <NAME>Watchdog Timer Enable</NAME>
+        <DESCRIPTION>WDT disabled in hardware; SWDTEN bit disabled</DESCRIPTION>
+      </SETTING23>
+      <SETTING24>
+        <NAME>Windowed WDT Disable</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING24>
+      <SETTING25>
+        <NAME>Emulator Pin Placement</NAME>
+        <DESCRIPTION>Emulator functions are shared with PGEC1/PGED1</DESCRIPTION>
+      </SETTING25>
+      <SETTING26>
+        <NAME>Low power regulator control</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING26>
+      <SETTING27>
+        <NAME>Background Debug</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING27>
+      <SETTING28>
+        <NAME>General Segment Write Protect</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING28>
+      <SETTING29>
+        <NAME>General Segment Code Protect</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING29>
+      <SETTING30>
+        <NAME>JTAG Port Enable</NAME>
+        <DESCRIPTION>Disabled</DESCRIPTION>
+      </SETTING30>
+    </SETTINGS>
+  </DEVICE>
+</MCU_DEVICE_FLAGS>
