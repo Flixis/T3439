@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "FUNCTIONS.H"
 #include "COMMANDS.H"
+#include "INTERRUPTS.H"
 
 
 /*Code written by Tariq Dinmohamed*/
@@ -9,63 +10,6 @@
 //Version control only relevant if Debug is enabled
 char CompileDate[] = __DATE__;
 char CompileTime[] = __TIME__;
-
-//First interrupt mapped, Get from register 0x000003C(defined by datasheet). ICS is left at auto.
-void interrupt1() iv 0x000003C ics ICS_AUTO {
-  //Clear the interrupt flag
-  IFS1.INT1IF = 0;
-  if (PORTD.F3 == 1) {
-    /*When conditions are met,
-    First we STOP the motor on the 0 point of the PCB.
-    Then we set the current pos of the Motor to the 0 point of the encoder.
-    Then we move the UUT to the left and wait for the safety line to trigger, in this instance safety line 1.
-    */
-    Motor_Command(STOP, sizeof(STOP));
-    Delay_ms(25);
-	GET_CURRENT_POS();
-    Delay_ms(25);
-    Motor_Command(SET_0_POS, sizeof(SET_0_POS));
-    Delay_ms(25);
-    Motor_Command(ROLAT5, sizeof(ROLAT5));
-
-    //Clear interrupt flag:
-    IFS1.INT1IF = 0; // Clear interrupt nul bit
-    //Disable interrupt 1 and enable interrupt 2
-    IEC1.INT1IE = 0; // Disable interrupt nul bit
-    IEC1.INT2IE = 1; // Enable interrupt saftey 2
-  }
-
-}
-
-//Second interrupt mapped, Get from register 0x000004E(defined by datasheet). ICS is left at auto.
-void interrupt2_low() iv 0x000004E ics ICS_AUTO {
-
-  if (PORTD.F4 == 1) {
-    /*When conditions are met,
-    Stop the motor, get the current position of the driver.
-    Print this data over UART1 to Test-Track. Test-Track will process this data and confirm wheter or not the UUT has triggerd at the right Pos.
-    if this is OK move the UUT to the right.
-    */
-    Motor_Command(STOP, sizeof(STOP));
-
-    //** it is necessary to clear manually the interrupt flag:
-    IEC1.INT2IE = 0; // Disable interrupt saftey 1
-    IEC3.INT3IE = 1; // Enable interrupt saftey 2
-  }
-}
-
-void interrupt3() iv 0x000007E ics ICS_AUTO {
-
-  if (PORTD.F5 == 1) {
-
-    Motor_Command(STOP, sizeof(STOP));
-
-    //** it is necessary to clear manually the interrupt flag:
-    IFS1.INT3IF = 0; // Clear interrupt saftey 2 bit
-    IEC3.INT3IE = 0; // Disable interrupt saftey 2           
-  }
-
-}
 
 /* Main Program */
 void main() {
@@ -111,7 +55,7 @@ void main() {
   IEC1.INT1IE = 1; //Nul ENABLE TO START TEST
 
   while (1) {
-	  
+          
     GET_COMMANDS();
 
   }

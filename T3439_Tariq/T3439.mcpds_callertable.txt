@@ -30,11 +30,11 @@ main
 			UART3_Write
 		UART1_Write_Text
 			UART1_Write
-interrupt3
+interrupt3_safety2
 	Motor_Command
-interrupt2_low
+interrupt2_safety1
 	Motor_Command
-interrupt1
+interrupt1_null
 	Motor_Command
 	GET_CURRENT_POS
 		Motor_Command

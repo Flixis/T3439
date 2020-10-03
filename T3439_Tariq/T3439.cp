@@ -108,58 +108,16 @@ static unsigned char STOP[] = {
  0x0a,
  0x0e
 };
-#line 10 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
+#line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/interrupts.h"
+
+
+
+void interrupt1_null();
+void interrupt2_safety1();
+void interrupt3_safety2();
+#line 11 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
 char CompileDate[] =  "Oct  3 2020" ;
-char CompileTime[] =  "17:48:57" ;
-
-
-void interrupt1() iv 0x000003C ics ICS_AUTO {
-
- IFS1.INT1IF = 0;
- if (PORTD.F3 == 1) {
-#line 23 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
- Motor_Command(STOP, sizeof(STOP));
- Delay_ms(25);
- GET_CURRENT_POS();
- Delay_ms(25);
- Motor_Command(SET_0_POS, sizeof(SET_0_POS));
- Delay_ms(25);
- Motor_Command(ROLAT5, sizeof(ROLAT5));
-
-
- IFS1.INT1IF = 0;
-
- IEC1.INT1IE = 0;
- IEC1.INT2IE = 1;
- }
-
-}
-
-
-void interrupt2_low() iv 0x000004E ics ICS_AUTO {
-
- if (PORTD.F4 == 1) {
-#line 49 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
- Motor_Command(STOP, sizeof(STOP));
-
-
- IEC1.INT2IE = 0;
- IEC3.INT3IE = 1;
- }
-}
-
-void interrupt3() iv 0x000007E ics ICS_AUTO {
-
- if (PORTD.F5 == 1) {
-
- Motor_Command(STOP, sizeof(STOP));
-
-
- IFS1.INT3IF = 0;
- IEC3.INT3IE = 0;
- }
-
-}
+char CompileTime[] =  "17:57:31" ;
 
 
 void main() {

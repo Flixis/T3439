@@ -1,17 +1,19 @@
-0	1	mikroCdsPIC.exe -MSF -DBG -pP24FJ128GA306 -DL -SSA -O11111114 -fo16 -N"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\T3439.mcpds" -SP"H:\Programming\mikroC PRO for dsPIC\Defs\" -SP"H:\Programming\mikroC PRO for dsPIC\Uses\" -SP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" -IP"H:\Programming\mikroC PRO for dsPIC\Uses\" -IP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" "T3439.c" "FUNCTIONS.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_Conversions.mcl" "__Lib_UART_1234_p24_p33.mcl" "__Lib_PPS_24FJ128GA306.mcl"	 
+0	1	mikroCdsPIC.exe -MSF -DBG -pP24FJ128GA306 -DL -SSA -O11111114 -fo16 -N"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\T3439.mcpds" -SP"H:\Programming\mikroC PRO for dsPIC\Defs\" -SP"H:\Programming\mikroC PRO for dsPIC\Uses\" -SP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" -IP"H:\Programming\mikroC PRO for dsPIC\Uses\" -IP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" "T3439.c" "FUNCTIONS.c" "INTERRUPTS.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_Conversions.mcl" "__Lib_UART_1234_p24_p33.mcl" "__Lib_PPS_24FJ128GA306.mcl"	 
 diagnostics: 0	121	Loading...	 
 diagnostics: 0	122	Compilation Started	stdbool.h
-hint: 0	1004	interrupt handler (interrupt1 at 0x003C)	T3439.c
-hint: 0	1004	interrupt handler (interrupt2_low at 0x004E)	T3439.c
-hint: 0	1004	interrupt handler (interrupt3 at 0x007E)	T3439.c
-diagnostics: 118	123	Compiled Successfully	T3439.c
+diagnostics: 62	123	Compiled Successfully	T3439.c
 diagnostics: 0	122	Compilation Started	commands.h
 diagnostics: 92	123	Compiled Successfully	FUNCTIONS.c
-diagnostics: 0	127	All files Compiled in 93 ms	 
+diagnostics: 0	122	Compilation Started	commands.h
+hint: 0	1004	interrupt handler (interrupt1_null at 0x003C)	INTERRUPTS.c
+hint: 0	1004	interrupt handler (interrupt2_safety1 at 0x004E)	INTERRUPTS.c
+hint: 0	1004	interrupt handler (interrupt3_safety2 at 0x007E)	INTERRUPTS.c
+diagnostics: 55	123	Compiled Successfully	INTERRUPTS.c
+diagnostics: 0	127	All files Compiled in 125 ms	 
 hint: 0	1144	Used RX (bytes): 32 (100%)   Free RX (bytes): 0 (0%)	Used RX (bytes): 32 (100%)   Free RX (bytes): 0 (0%)
 hint: 0	1144	Static RAM (bytes): 332   Dynamic RAM (bytes): 7860	Static RAM (bytes): 332   Dynamic RAM (bytes): 7860
 hint: 0	1144	Used ROM (bytes): 3625 (4%)  Free ROM (bytes): 84431 (96%)	Used ROM (bytes): 3625 (4%)  Free ROM (bytes): 84431 (96%)
 diagnostics: 0	125	Project Linked Successfully	T3439.mcpds
-diagnostics: 0	128	Linked in 141 ms	 
-diagnostics: 0	129	Project 'T3439.mcpds' completed: 359 ms	 
-diagnostics: 0	103	Finished successfully: 03 okt 2020, 17:48:57	T3439.mcpds
+diagnostics: 0	128	Linked in 140 ms	 
+diagnostics: 0	129	Project 'T3439.mcpds' completed: 390 ms	 
+diagnostics: 0	103	Finished successfully: 03 okt 2020, 17:57:32	T3439.mcpds

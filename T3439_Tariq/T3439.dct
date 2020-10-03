@@ -5804,9 +5804,9 @@ intcon1
 intcon1bits
 intcon2
 intcon2bits
-interrupt1
-interrupt2_low
-interrupt3
+interrupt1_null
+interrupt2_safety1
+interrupt3_safety2
 inttohex
 inttostr
 inttostrwithzeros
