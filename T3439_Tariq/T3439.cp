@@ -4,46 +4,29 @@
 
 
  typedef char _Bool;
-#line 6 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
- _Bool  Debug =  0 ;
- _Bool  TestMode =  1 ;
-
-
-int Safety1;
-int Safety3;
-int Nullstand;
-
-
-
-char receive;
-char input[16] = "";
-
-
-unsigned char hex[127];
-char nutsdeez[127];
-int x;
-int completedtask = 0;
+#line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/commands.h"
 
 
 
 
-char COMMAND_GET_POS[10] = "GET_POS";
-char COMMMAND_SET_0_POS[16] = "SET_0_POS";
-char COMMMAND_MV_ABS_0[12] = "MV_ABS_0";
-char COMMMAND_RORAT5[10] = "RORAT5";
-char COMMMAND_ROLAT5[10] = "ROLAT5";
-char COMMMAND_STOP[10] = "STOP";
+
+static char COMMAND_GET_POS[10] = "GET_POS";
+static char COMMMAND_SET_0_POS[16] = "SET_0_POS";
+static char COMMMAND_MV_ABS_0[12] = "MV_ABS_0";
+static char COMMMAND_RORAT5[10] = "RORAT5";
+static char COMMMAND_ROLAT5[10] = "ROLAT5";
+static char COMMMAND_STOP[10] = "STOP";
 
 
-char COMMAND_START[8] = "START";
-char COMMAND_RESET[8] = "RESET";
+static char COMMAND_START[8] = "START";
+static char COMMAND_RESET[8] = "RESET";
 
 
-char TOK_OK_SF1[8] = "SF1_OK";
+static char TOK_OK_SF1[8] = "SF1_OK";
 
 
 
-unsigned char GET_POS[] = {
+static unsigned char GET_POS[] = {
  0x01,
  0x06,
  0x01,
@@ -56,7 +39,7 @@ unsigned char GET_POS[] = {
 };
 
 
-unsigned char SET_0_POS[] = {
+static unsigned char SET_0_POS[] = {
  0x01,
  0x05,
  0x01,
@@ -69,7 +52,7 @@ unsigned char SET_0_POS[] = {
 };
 
 
-unsigned char MV_ABS_0[] = {
+static unsigned char MV_ABS_0[] = {
  0x01,
  0x04,
  0x00,
@@ -82,7 +65,7 @@ unsigned char MV_ABS_0[] = {
 };
 
 
-unsigned char RORAT5[] = {
+static unsigned char RORAT5[] = {
  0x01,
  0x01,
  0x00,
@@ -95,7 +78,7 @@ unsigned char RORAT5[] = {
 };
 
 
-unsigned char ROLAT5[] = {
+static unsigned char ROLAT5[] = {
  0x01,
  0x02,
  0x00,
@@ -107,7 +90,7 @@ unsigned char ROLAT5[] = {
  0x08
 };
 
-unsigned char STOP[] = {
+static unsigned char STOP[] = {
  0x01,
  0x03,
  0x00,
@@ -118,19 +101,22 @@ unsigned char STOP[] = {
  0x0a,
  0x0e
 };
+#line 9 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
+char receive;
+char input[16] = "";
 
+
+unsigned char hex[127];
+char nutsdeez[127];
+int x;
+int completedtask = 0;
 
 char CompileDate[] =  "Oct  3 2020" ;
-char CompileTime[] =  "14:48:56" ;
-#line 128 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
+char CompileTime[] =  "15:30:00" ;
+#line 25 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
 int i;
 void Motor_Command(unsigned char * data_get, int data_len) {
  for (i = 0; i < data_len; i++) {
- if (Debug) {
-
- UART_Set_Active( & UART1_Read, & UART1_Write, & UART1_Data_Ready, & UART1_Tx_Idle);
- UART1_Write(data_get[i]);
- }
 
  UART_Set_Active( & UART3_Read, & UART3_Write, & UART3_Data_Ready, & UART3_Tx_Idle);
  UART3_Write(data_get[i]);
@@ -140,12 +126,8 @@ void Motor_Command(unsigned char * data_get, int data_len) {
  }
 }
 
-int hex_to_signed_2_complement(char hexdata){
-
-}
-
-
 void GET_CURRENT_POS(){
+#line 49 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
  U1STA.UTXEN = 0;
  U1STA.OERR = 1;
  U3STA.OERR = 1;
@@ -154,17 +136,11 @@ void GET_CURRENT_POS(){
  U1STA.OERR = 0;
  U3STA.OERR = 0;
  Motor_Command(GET_POS, sizeof(GET_POS));
-
+#line 63 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
  while (x <= 9) {
  for (i = 0; i < uart3_data_ready(); i++) {
  hex[i] = uart3_read();
-
-
-
- ByteToHex(hex[i],nutsdeez[i]);
-
-
-
+ uart1_write(hex[i]);
  x++;
  }
  }
@@ -178,13 +154,8 @@ void GET_CURRENT_POS(){
 void interrupt1() iv 0x000003C ics ICS_AUTO {
 
  IFS1.INT1IF = 0;
- Delay_ms(10);
- if (Debug) {
- UART1_Write_Text("Triggered Null\n\r");
- }
-
- if (PORTD.F3 == 1 && TestMode) {
-#line 194 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
+ if (PORTD.F3 == 1) {
+#line 86 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
  Motor_Command(STOP, sizeof(STOP));
  GET_CURRENT_POS();
 
@@ -210,46 +181,10 @@ void interrupt1() iv 0x000003C ics ICS_AUTO {
 
 void interrupt2_low() iv 0x000004E ics ICS_AUTO {
 
- if (Debug) {
- UART1_Write_Text("Triggered Safety 1\r");
- }
-
- if (PORTD.F4 == 1 && TestMode) {
-#line 229 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
+ if (PORTD.F4 == 1) {
+#line 117 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
  Motor_Command(STOP, sizeof(STOP));
-#line 241 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
- U1STA.UTXEN = 0;
- U1STA.OERR = 1;
- U3STA.OERR = 1;
- Delay_ms(5);
- U1STA.UTXEN = 1;
- U1STA.OERR = 0;
- U3STA.OERR = 0;
- Motor_Command(GET_POS, sizeof(GET_POS));
-#line 254 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
- while (x <= 9) {
- for (i = 0; i < uart3_data_ready(); i++) {
- hex[9] = uart3_read();
- uart1_write(hex);
- x++;
- if (x >= 8) {
- completedtask = 1;
- }
- }
 
- }
-#line 267 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
- while (completedtask == 1) {
- if (uart1_data_ready()) {
- uart1_read_text(input, "\r\n", sizeof(input));
- if (strcmp(input, TOK_OK_SF1) == 0) {
- Motor_Command(RORAT5, sizeof(RORAT5));
- delay_ms(2500);
- IFS1.INT2IF = 0;
- completedtask = 0;
- }
- }
- }
 
 
  IEC1.INT2IE = 0;
@@ -259,35 +194,9 @@ void interrupt2_low() iv 0x000004E ics ICS_AUTO {
 
 void interrupt3() iv 0x000007E ics ICS_AUTO {
 
- if (Debug) {
- UART1_Write_Text("Triggered Safety 2\r");
- }
-
- if (PORTD.F5 == 1 && TestMode) {
+ if (PORTD.F5 == 1) {
 
  Motor_Command(STOP, sizeof(STOP));
-
-
- U1STA.UTXEN = 0;
- U1STA.OERR = 1;
- U3STA.OERR = 1;
- Delay_ms(5);
- U1STA.UTXEN = 1;
- U1STA.OERR = 0;
- U3STA.OERR = 0;
- Motor_Command(GET_POS, sizeof(GET_POS));
-
- while (x <= 9) {
- for (i = 0; i < uart3_data_ready(); i++) {
- hex[9] = uart3_read();
- uart1_write(hex);
- x++;
- if (x >= 8) {
- completedtask = 1;
- }
- }
-
- }
 
 
  IFS1.INT3IF = 0;
@@ -327,10 +236,6 @@ void Get_Command() {
  reset
  }
  } else {
- if (Debug)
- uart1_write_text("Unrecognized command: ");
- uart1_write_text(input);
- input[20] = 0;
  }
  }
 }
@@ -381,15 +286,6 @@ void main() {
  IEC3.INT3IE = 0;
  IEC1.INT2IE = 0;
  IEC1.INT1IE = 1;
-
-
- if (debug) {
- Delay_ms(3000);
- UART1_Write_text(CompileDate);
- UART1_Write_Text(" ");
- UART1_Write_text(CompileTime);
- UART1_Write_Text("\r\n");
- }
 
  while ( 1 ) {
 

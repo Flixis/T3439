@@ -19,8 +19,6 @@ main
 			Unlock_IOLOCK
 			Lock_IOLOCK
 	Lock_IOLOCK
-	UART1_Write_Text
-		UART1_Write
 	Get_Command
 		UART1_Data_Ready
 		UART1_Read_Text
@@ -29,29 +27,17 @@ main
 		strcmp
 		Motor_Command
 			UART_Set_Active
-			UART1_Write
 			UART3_Write
 		UART1_Write_Text
+			UART1_Write
 interrupt3
-	UART1_Write_Text
 	Motor_Command
-	UART3_Data_Ready
-	UART3_Read
-	UART1_Write
 interrupt2_low
-	UART1_Write_Text
 	Motor_Command
-	UART3_Data_Ready
-	UART3_Read
-	UART1_Write
-	UART1_Data_Ready
-	UART1_Read_Text
-	strcmp
 interrupt1
-	UART1_Write_Text
 	Motor_Command
 	GET_CURRENT_POS
 		Motor_Command
 		UART3_Data_Ready
 		UART3_Read
-		ByteToHex
+		UART1_Write

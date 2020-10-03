@@ -2727,14 +2727,6 @@ coe_bit
 coe_cm1con_bit
 coe_cm2con_bit
 coe_cm3con_bit
-command_get_pos
-command_reset
-command_start
-commmand_mv_abs_0
-commmand_rolat5
-commmand_rorat5
-commmand_set_0_pos
-commmand_stop
 compiledate
 compiletime
 completedtask
@@ -3529,7 +3521,6 @@ dcb1
 dcb1
 dcb1
 dcb1
-debug
 dec2bcd
 dec2bcd16
 delay_100ms
@@ -4276,7 +4267,6 @@ get_command
 get_current_pos
 get_fosc_khz
 get_fosc_per_cyc
-get_pos
 haddr_0
 haddr_0_bit
 haddr_1
@@ -4341,7 +4331,6 @@ halfsec
 halfsec
 halfsec_bit
 hex
-hex_to_signed_2_complement
 highif
 highif
 highif
@@ -6711,7 +6700,6 @@ msten
 msten_bit
 msten_spi1con1_bit
 msten_spi2con1_bit
-mv_abs_0
 n
 n
 n_bit
@@ -6728,7 +6716,6 @@ nosc2
 nstdis
 nstdis
 nstdis_bit
-nullstand
 nullw
 nullw
 nullw
@@ -9134,9 +9121,7 @@ roen_bit
 roi
 roi
 roi_bit
-rolat5
 roon
-rorat5
 rosel
 rosel
 rosel_bit
@@ -10830,8 +10815,6 @@ saddr_9_dmasrc2_bit
 saddr_9_dmasrc3_bit
 saddr_9_dmasrc4_bit
 saddr_9_dmasrc5_bit
-safety1
-safety3
 samc
 samc_0
 samc_0_ad1con3_bit
@@ -11086,7 +11069,6 @@ sen
 sen_bit
 sen_i2c1con_bit
 sen_i2c2con_bit
-set_0_pos
 shorttohex
 shorttostr
 shorttostrwithzeros
@@ -11578,7 +11560,6 @@ ssrc3
 stkerr
 stkerr
 stkerr_bit
-stop
 strcat
 strchr
 strcmp
@@ -12063,7 +12044,6 @@ tecs_1
 tecs_1_bit
 tecs0
 tecs1
-testmode
 tgate
 tgate
 tgate
@@ -12314,7 +12294,6 @@ tmr5hld_8
 tmr5hld_8_bit
 tmr5hld_9
 tmr5hld_9_bit
-tok_ok_sf1
 tolower
 ton
 ton

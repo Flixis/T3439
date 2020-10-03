@@ -1,18 +1,11 @@
 //Note! This is a custom stdbool.h file, the normal compiler doesn't support boolean type. Can be found under Header/ folder.
 #include <stdbool.h>
+#include "COMMANDS.H"
 
 
 /*Code written by Tariq Dinmohamed*/
-bool Debug = false;
-bool TestMode = true;
-
-/* Definitions I/O to int */
-int Safety1;
-int Safety3;
-int Nullstand;
 
 /* Definitions Chars/ints for calculations related to UART*/
-//Char for receiving
 char receive;
 char input[16] = "";
 
@@ -21,102 +14,6 @@ unsigned char hex[127];
 char nutsdeez[127];
 int x;
 int completedtask = 0;
-
-/*Command Definitions*/
-
-//Commands if statements
-char COMMAND_GET_POS[10] = "GET_POS";
-char COMMMAND_SET_0_POS[16] = "SET_0_POS";
-char COMMMAND_MV_ABS_0[12] = "MV_ABS_0";
-char COMMMAND_RORAT5[10] = "RORAT5";
-char COMMMAND_ROLAT5[10] = "ROLAT5";
-char COMMMAND_STOP[10] = "STOP";
-
-//Commands that stars the normal testing sequence
-char COMMAND_START[8] = "START";
-char COMMAND_RESET[8] = "RESET";
-
-//Test-Track response
-char TOK_OK_SF1[8] = "SF1_OK";
-
-//Commands Motor driver
-//Get current encoder position
-unsigned char GET_POS[] = {
-  0x01,
-  0x06,
-  0x01,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x08
-};
-
-//Set zero point
-unsigned char SET_0_POS[] = {
-  0x01,
-  0x05,
-  0x01,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x07
-};
-
-//Move to absolute 0
-unsigned char MV_ABS_0[] = {
-  0x01,
-  0x04,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x05
-};
-
-//Rotate right @ 5 speed
-unsigned char RORAT5[] = {
-  0x01,
-  0x01,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x05,
-  0x07
-};
-
-//Rotate Left @ 5 speed
-unsigned char ROLAT5[] = {
-  0x01,
-  0x02,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x05,
-  0x08
-};
-
-unsigned char STOP[] = {
-  0x01,
-  0x03,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x0a,
-  0x0e
-};
-
 //Version control only relevant if Debug is enabled
 char CompileDate[] = __DATE__;
 char CompileTime[] = __TIME__;
@@ -128,11 +25,6 @@ Then it just prints it over uartX.
 int i;
 void Motor_Command(unsigned char * data_get, int data_len) {
   for (i = 0; i < data_len; i++) {
-    if (Debug) {
-      //Debug UART1
-      UART_Set_Active( & UART1_Read, & UART1_Write, & UART1_Data_Ready, & UART1_Tx_Idle);
-      UART1_Write(data_get[i]);
-    }
     //Motor driver
     UART_Set_Active( & UART3_Read, & UART3_Write, & UART3_Data_Ready, & UART3_Tx_Idle);
     UART3_Write(data_get[i]);
@@ -142,13 +34,19 @@ void Motor_Command(unsigned char * data_get, int data_len) {
   }
 }
 
-int hex_to_signed_2_complement(char hexdata){
-
-}
-
-
 void GET_CURRENT_POS(){
-    U1STA.UTXEN = 0;
+    
+        /*So an important thing about this device is that the motor driver is constantly sending out data over it's uart.
+    This means that the UART.OERR(overflow bit) is set to true, because the receive buffer is overflown.
+    You must first clear this, BUT this must be done in quick succession if not, you'll end up receiving "Fake data".
+    Fake date being data that almost looks like the real data, except some of the bytes are either inverted or just simply +X amount in value.
+    Anyway, what you're seeing below is a bunch of clearing for UART registers, and then quickly enabling them again.
+    This acts as a clear command for the UART buffers. After this is done I send the command and receive whatever data comes in.
+    I move this data from buffer to memory and print it to uart to prevent another overflow.
+    Funny enough, an overflow still occurs, but not before all the correct data is sent over uart1.
+    */
+        
+        U1STA.UTXEN = 0;
     U1STA.OERR = 1;
     U3STA.OERR = 1;
     Delay_ms(5);
@@ -157,16 +55,15 @@ void GET_CURRENT_POS(){
     U3STA.OERR = 0;
     Motor_Command(GET_POS, sizeof(GET_POS));
 
-    while (x <= 9) {
+    
+    /*Move this to a seperate interrupt handeler this could fix the UART problems.
+    Get the Test-Track OK signal before moving the UUT.
+    Am also only interested in the first 9 bytes. Everything else is junkerino.
+    */
+        while (x <= 9) {
       for (i = 0; i < uart3_data_ready(); i++) {
         hex[i] = uart3_read();
-        //uart1_write(hex[i]);
-        
-
-        ByteToHex(hex[i],nutsdeez[i]);
-        
-        
-        
+        uart1_write(hex[i]);      
         x++;
       }
     }
@@ -180,12 +77,7 @@ void GET_CURRENT_POS(){
 void interrupt1() iv 0x000003C ics ICS_AUTO {
   //Clear the interrupt flag
   IFS1.INT1IF = 0;
-  Delay_ms(10);
-  if (Debug) {
-    UART1_Write_Text("Triggered Null\n\r");
-  }
-
-  if (PORTD.F3 == 1 && TestMode) {
+  if (PORTD.F3 == 1) {
     /*When conditions are met,
     First we STOP the motor on the 0 point of the PCB.
     Then we set the current pos of the Motor to the 0 point of the encoder.
@@ -216,65 +108,14 @@ void interrupt1() iv 0x000003C ics ICS_AUTO {
 //Second interrupt mapped, Get from register 0x000004E(defined by datasheet). ICS is left at auto.
 void interrupt2_low() iv 0x000004E ics ICS_AUTO {
 
-  if (Debug) {
-    UART1_Write_Text("Triggered Safety 1\r");
-  }
-
-  if (PORTD.F4 == 1 && TestMode) {
+  if (PORTD.F4 == 1) {
     /*When conditions are met,
     Stop the motor, get the current position of the driver.
     Print this data over UART1 to Test-Track. Test-Track will process this data and confirm wheter or not the UUT has triggerd at the right Pos.
     if this is OK move the UUT to the right.
     */
     Motor_Command(STOP, sizeof(STOP));
-
-    /*So an important thing about this device is that the motor driver is constantly sending out data over it's uart.
-    This means that the UART.OERR(overflow bit) is set to true, because the receive buffer is overflown.
-    You must first clear this, BUT this must be done in quick succession if not, you'll end up receiving "Fake data".
-    Fake date being data that almost looks like the real data, except some of the bytes are either inverted or just simply +X amount in value.
-    Anyway, what you're seeing below is a bunch of clearing for UART registers, and then quickly enabling them again.
-    This acts as a clear command for the UART buffers. After this is done I send the command and receive whatever data comes in.
-    I move this data from buffer to memory and print it to uart to prevent another overflow.
-    Funny enough, an overflow still occurs, but not before all the correct data is sent over uart1.
-    */
-    //Get current POS
-    U1STA.UTXEN = 0;
-    U1STA.OERR = 1;
-    U3STA.OERR = 1;
-    Delay_ms(5);
-    U1STA.UTXEN = 1;
-    U1STA.OERR = 0;
-    U3STA.OERR = 0;
-    Motor_Command(GET_POS, sizeof(GET_POS));
-
-    /*Move this to a seperate interrupt handeler this could fix the UART problems.
-    Get the Test-Track OK signal before moving the UUT.
-    Am also only interested in the first 9 bytes. Everything else is junkerino.
-    */
-    while (x <= 9) {
-      for (i = 0; i < uart3_data_ready(); i++) {
-        hex[9] = uart3_read();
-        uart1_write(hex);
-        x++;
-        if (x >= 8) {
-          completedtask = 1;
-        }
-      }
-
-    }
-    /*After sending out the 9 bytes, I wanna confirm on Test-Track that the value is indeed correct before moving on.
-    This waits for Test-Track input before moving anywhere.*/
-    while (completedtask == 1) {
-      if (uart1_data_ready()) {
-        uart1_read_text(input, "\r\n", sizeof(input));
-        if (strcmp(input, TOK_OK_SF1) == 0) {
-          Motor_Command(RORAT5, sizeof(RORAT5));
-                  delay_ms(2500);
-          IFS1.INT2IF = 0; // Clear interrupt saftey 1 bit
-          completedtask = 0;
-        }
-      }
-    }
+        
 
     //** it is necessary to clear manually the interrupt flag:
     IEC1.INT2IE = 0; // Disable interrupt saftey 1
@@ -284,35 +125,9 @@ void interrupt2_low() iv 0x000004E ics ICS_AUTO {
 
 void interrupt3() iv 0x000007E ics ICS_AUTO {
         
-  if (Debug) {
-    UART1_Write_Text("Triggered Safety 2\r");
-  }
-
-  if (PORTD.F5 == 1 && TestMode) {
+  if (PORTD.F5 == 1) {
 
     Motor_Command(STOP, sizeof(STOP));
-
-    //Get current POS
-    U1STA.UTXEN = 0;
-    U1STA.OERR = 1;
-    U3STA.OERR = 1;
-    Delay_ms(5);
-    U1STA.UTXEN = 1;
-    U1STA.OERR = 0;
-    U3STA.OERR = 0;
-    Motor_Command(GET_POS, sizeof(GET_POS));
-
-    while (x <= 9) {
-      for (i = 0; i < uart3_data_ready(); i++) {
-        hex[9] = uart3_read();
-        uart1_write(hex);
-        x++;
-        if (x >= 8) {
-          completedtask = 1;
-        }
-      }
-
-    }
 
     //** it is necessary to clear manually the interrupt flag:
     IFS1.INT3IF = 0; // Clear interrupt saftey 2 bit
@@ -352,10 +167,6 @@ void Get_Command() {
         reset
       }
     } else {
-      if (Debug)
-        uart1_write_text("Unrecognized command: "); //Failed to recognize.
-      uart1_write_text(input); //output failed command.
-      input[20] = 0;
     }
   }
 }
@@ -406,15 +217,6 @@ void main() {
   IEC3.INT3IE = 0; // Disable interrupt saftey 2
   IEC1.INT2IE = 0; // Disable interrupt saftey 1
   IEC1.INT1IE = 1; //Nul ENABLE TO START TEST
-
-  //Compile date and time printout , it's inside an if statement to prevent multiple prints after an interrupt occurs.
-  if (debug) {
-    Delay_ms(3000);
-    UART1_Write_text(CompileDate);
-    UART1_Write_Text(" ");
-    UART1_Write_text(CompileTime);
-    UART1_Write_Text("\r\n");
-  }
 
   while (true) {
 
