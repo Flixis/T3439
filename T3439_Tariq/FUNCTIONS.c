@@ -1,5 +1,5 @@
-#include "COMMANDS.H"
 #include "FUNCTIONS.H"
+#include "COMMANDS.H"
 
 
 /* Definitions Chars/ints for calculations related to UART*/

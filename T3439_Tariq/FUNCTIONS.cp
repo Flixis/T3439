@@ -1,4 +1,11 @@
 #line 1 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
+#line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/functions.h"
+
+
+
+void GET_COMMANDS();
+void Motor_Command(char* data_get, int data_len);
+void GET_CURRENT_POS();
 #line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/commands.h"
 
 
@@ -96,13 +103,6 @@ static unsigned char STOP[] = {
  0x0a,
  0x0e
 };
-#line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/functions.h"
-
-
-
-void GET_COMMANDS();
-void Motor_Command(char* data_get, int data_len);
-void GET_CURRENT_POS();
 #line 6 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
 char receive;
 char input[16];

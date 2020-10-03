@@ -1,9 +1,4 @@
 #line 1 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
-#line 1 "h:/programming/mikroc pro for dspic/include/stdbool.h"
-
-
-
- typedef char _Bool;
 #line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/functions.h"
 
 
@@ -108,16 +103,9 @@ static unsigned char STOP[] = {
  0x0a,
  0x0e
 };
-#line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/interrupts.h"
-
-
-
-void interrupt1_null();
-void interrupt2_safety1();
-void interrupt3_safety2();
-#line 11 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
+#line 8 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
 char CompileDate[] =  "Oct  3 2020" ;
-char CompileTime[] =  "17:57:31" ;
+char CompileTime[] =  "18:06:10" ;
 
 
 void main() {

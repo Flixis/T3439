@@ -1,8 +1,5 @@
-//Note! This is a custom stdbool.h file, the normal compiler doesn't support boolean type. Can be found under Header/ folder.
-#include <stdbool.h>
 #include "FUNCTIONS.H"
 #include "COMMANDS.H"
-#include "INTERRUPTS.H"
 
 
 /*Code written by Tariq Dinmohamed*/
