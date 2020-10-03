@@ -1,4 +1,5 @@
 #include "FUNCTIONS.H"
+
 #include "COMMANDS.H"
 
 
@@ -11,25 +12,23 @@ void GET_COMMANDS() {
     uart1_read_text(input, "\r\n", sizeof(input)); // Read String data up to 10th charachter if \r if found stop looking and put data in input.
     //compare what we got in input to whatever we define as a commmand up at the variables.
     if (strcmp(input, COMMAND_GET_POS) == 0) {
-      Motor_Command(GET_POS, sizeof(GET_POS));
+      MOTOR_COMMAND(GET_POS, sizeof(GET_POS));
     } else if (strcmp(input, COMMMAND_SET_0_POS) == 0) {
-      Motor_Command(SET_0_POS, sizeof(SET_0_POS));
+      MOTOR_COMMAND(SET_0_POS, sizeof(SET_0_POS));
     } else if (strcmp(input, COMMMAND_MV_ABS_0) == 0) {
-      Motor_Command(MV_ABS_0, sizeof(MV_ABS_0));
+      MOTOR_COMMAND(MV_ABS_0, sizeof(MV_ABS_0));
     } else if (strcmp(input, COMMMAND_RORAT5) == 0) {
-      Motor_Command(RORAT5, sizeof(RORAT5));
+      MOTOR_COMMAND(RORAT5, sizeof(RORAT5));
     } else if (strcmp(input, COMMMAND_ROLAT5) == 0) {
-      Motor_Command(ROLAT5, sizeof(ROLAT5));
+      MOTOR_COMMAND(ROLAT5, sizeof(ROLAT5));
     } else if (strcmp(input, COMMAND_START) == 0) {
-
       /*Actual T3439 testing routine*/
       //Start by moving the UUT right
-      Motor_Command(ROLAT5, sizeof(ROLAT5));
-      delay_ms(1000);
+      MOTOR_COMMAND(ROLAT5, sizeof(ROLAT5));
 
     } else if (strcmp(input, COMMMAND_STOP) == 0) {
       uart1_write_text("Stopped!");
-      Motor_Command(STOP, sizeof(STOP));
+      MOTOR_COMMAND(STOP, sizeof(STOP));
     } else if (strcmp(input, COMMAND_RESET) == 0) {
       asm {
         reset
@@ -43,7 +42,7 @@ It just loops over the Hex values in the Array, Making sure to get all data by u
 Then it just prints it over uartX.
 */
 int i;
-void Motor_Command(unsigned char * data_get, int data_len) {
+void MOTOR_COMMAND(unsigned char * data_get, int data_len) {
   for (i = 0; i < data_len; i++) {
     //Motor driver
     UART_Set_Active( & UART3_Read, & UART3_Write, & UART3_Data_Ready, & UART3_Tx_Idle);
@@ -55,6 +54,8 @@ void Motor_Command(unsigned char * data_get, int data_len) {
 }
 
 int x;
+int y;
+char data_temp[127]; 
 unsigned char hex[127];
 void GET_CURRENT_POS() {
 
@@ -67,7 +68,6 @@ void GET_CURRENT_POS() {
   I move this data from buffer to memory and print it to uart to prevent another overflow.
   Funny enough, an overflow still occurs, but not before all the correct data is sent over uart1.
   */
-
   U1STA.UTXEN = 0;
   U1STA.OERR = 1;
   U3STA.OERR = 1;
@@ -85,8 +85,66 @@ void GET_CURRENT_POS() {
     for (i = 0; i < uart3_data_ready(); i++) {
       hex[i] = uart3_read();
       uart1_write(hex[i]);
-      x++;
+	  x++;
     }
   }
+}
 
+int HEX2COMP(char * hex) {
+  int value = 0, counter = 1;
+  for (counter = 1; counter < 18; counter++) {
+    switch (hex[counter]) {
+    case '0':
+      value = value << 4;
+      break;
+    case '1':
+      value = (value << 4) + 1;
+      break;
+    case '2':
+      value = (value << 4) + 2;
+      break;
+    case '3':
+      value = (value << 4) + 3;
+      break;
+    case '4':
+      value = (value << 4) + 4;
+      break;
+    case '5':
+      value = (value << 4) + 5;
+      break;
+    case '6':
+      value = (value << 4) + 6;
+      break;
+    case '7':
+      value = (value << 4) + 7;
+      break;
+    case '8':
+      value = (value << 4) + 8;
+      break;
+    case '9':
+      value = (value << 4) + 9;
+      break;
+    case 'A':
+      value = (value << 4) + 10;
+      break;
+    case 'B':
+      value = (value << 4) + 11;
+      break;
+    case 'C':
+      value = (value << 4) + 12;
+      break;
+    case 'D':
+      value = (value << 4) + 13;
+      break;
+    case 'E':
+      value = (value << 4) + 14;
+      break;
+    case 'F':
+      value = (value << 4) + 15;
+      break;
+    default:
+      break;
+    }
+  }
+  return value;
 }

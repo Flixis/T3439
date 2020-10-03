@@ -1,8 +1,10 @@
 #ifndef INTERRUPTS_H
 #define INTERRUPTS_H
 
-void interrupt1_null();
-void interrupt2_safety1();
-void interrupt3_safety2();
+void interrupt1();
+void interrupt2();
+void interrupt3();
+
+int _temp_flag;
 
 #endif

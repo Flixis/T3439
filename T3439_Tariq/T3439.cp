@@ -4,8 +4,9 @@
 
 
 void GET_COMMANDS();
-void Motor_Command(char* data_get, int data_len);
+void MOTOR_COMMAND(char* data_get, int data_len);
 void GET_CURRENT_POS();
+int HEX2COMP(char* hex);
 #line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/commands.h"
 
 
@@ -103,9 +104,18 @@ static unsigned char STOP[] = {
  0x0a,
  0x0e
 };
-#line 8 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
+#line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/interrupts.h"
+
+
+
+void interrupt1();
+void interrupt2();
+void interrupt3();
+
+int _temp_flag;
+#line 9 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
 char CompileDate[] =  "Oct  3 2020" ;
-char CompileTime[] =  "18:06:10" ;
+char CompileTime[] =  "21:33:13" ;
 
 
 void main() {
@@ -145,14 +155,34 @@ void main() {
 
 
  INTCON1.NSTDIS = 0;
+ INTCON.GIE = 1;
+ INTCON1.INT1EP = 0;
 
  IEC3.INT3IE = 0;
  IEC1.INT2IE = 0;
- IEC1.INT1IE = 1;
+
+
+
 
  while (1) {
 
  GET_COMMANDS();
+
+ if(PORTD.F4 == 0 && PORTD.F5 == 0){
+ IEC1.INT1IE = 1;
+ }
+
+ if(_temp_flag == 1){
+ if(PORTD.F3 == 0){
+ GET_CURRENT_POS();
+ _temp_flag = 0;
+ }
+ }
+
+
+
+
+
 
  }
 }

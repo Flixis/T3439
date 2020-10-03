@@ -1,5 +1,6 @@
 #include "FUNCTIONS.H"
 #include "COMMANDS.H"
+#include "INTERRUPTS.H"
 
 
 /*Code written by Tariq Dinmohamed*/
@@ -46,14 +47,34 @@ void main() {
 
   //Interrupt nesting enable
   INTCON1.NSTDIS = 0;
+  INTCON.GIE = 1;
+  INTCON1.INT1EP = 0;
   //Interrupt enable bits
   IEC3.INT3IE = 0; // Disable interrupt saftey 2
   IEC1.INT2IE = 0; // Disable interrupt saftey 1
-  IEC1.INT1IE = 1; //Nul ENABLE TO START TEST
+  
 
+  
+  
   while (1) {
           
     GET_COMMANDS();
+	
+	if(PORTD.F4 == 0 && PORTD.F5 == 0){
+	 IEC1.INT1IE = 1; //Nul ENABLE TO START TEST    
+	}
+	
+	if(_temp_flag == 1){
+	  if(PORTD.F3 == 0){
+	   GET_CURRENT_POS();
+	  _temp_flag = 0;	  
+	  }
+	}
+	
+	
+	
+	
+	
 
   }
 }

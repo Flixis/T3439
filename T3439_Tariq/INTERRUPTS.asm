@@ -1,5 +1,5 @@
 
-_interrupt1_null:
+_interrupt1:
 	PUSH	DSWPAG
 	PUSH	50
 	PUSH	RCOUNT
@@ -8,62 +8,23 @@ _interrupt1_null:
 	REPEAT	#12
 	PUSH	[W0++]
 
-;INTERRUPTS.c,6 :: 		void interrupt1_null() iv 0x000003C ics ICS_AUTO {
-;INTERRUPTS.c,8 :: 		IFS1.INT1IF = 0;
-	PUSH	W10
-	PUSH	W11
+;INTERRUPTS.c,10 :: 		void interrupt1() iv 0x000003C ics ICS_AUTO {
+;INTERRUPTS.c,11 :: 		IFS1.INT1IF = 0;
 	BCLR.B	IFS1, #4
-;INTERRUPTS.c,9 :: 		if (PORTD.F3 == 1) {
-	BTSS	PORTD, #3
-	GOTO	L_interrupt1_null0
-;INTERRUPTS.c,15 :: 		Motor_Command(STOP, sizeof(STOP));
-	MOV	#9, W11
-	MOV	#lo_addr(INTERRUPTS_STOP), W10
-	CALL	_Motor_Command
-;INTERRUPTS.c,16 :: 		Delay_ms(25);
-	MOV	#2, W8
-	MOV	#1130, W7
-L_interrupt1_null1:
-	DEC	W7
-	BRA NZ	L_interrupt1_null1
-	DEC	W8
-	BRA NZ	L_interrupt1_null1
-;INTERRUPTS.c,17 :: 		GET_CURRENT_POS();
+;INTERRUPTS.c,12 :: 		GET_CURRENT_POS();
 	CALL	_GET_CURRENT_POS
-;INTERRUPTS.c,18 :: 		Delay_ms(25);
-	MOV	#2, W8
-	MOV	#1130, W7
-L_interrupt1_null3:
+;INTERRUPTS.c,13 :: 		INTCON1.INT1EP = 1;
+	BSET.B	INTCON1, #1
+;INTERRUPTS.c,14 :: 		delay_ms(1000);
+	MOV	#41, W8
+	MOV	#45239, W7
+L_interrupt10:
 	DEC	W7
-	BRA NZ	L_interrupt1_null3
+	BRA NZ	L_interrupt10
 	DEC	W8
-	BRA NZ	L_interrupt1_null3
-;INTERRUPTS.c,19 :: 		Motor_Command(SET_0_POS, sizeof(SET_0_POS));
-	MOV	#9, W11
-	MOV	#lo_addr(INTERRUPTS_SET_0_POS), W10
-	CALL	_Motor_Command
-;INTERRUPTS.c,20 :: 		Delay_ms(50);
-	MOV	#3, W8
-	MOV	#2261, W7
-L_interrupt1_null5:
-	DEC	W7
-	BRA NZ	L_interrupt1_null5
-	DEC	W8
-	BRA NZ	L_interrupt1_null5
-;INTERRUPTS.c,21 :: 		Motor_Command(ROLAT5, sizeof(ROLAT5));
-	MOV	#9, W11
-	MOV	#lo_addr(INTERRUPTS_ROLAT5), W10
-	CALL	_Motor_Command
-;INTERRUPTS.c,24 :: 		IEC1.INT1IE = 0; // Disable interrupt nul bit
-	BCLR.B	IEC1, #4
-;INTERRUPTS.c,25 :: 		IEC1.INT2IE = 1; // Enable interrupt saftey 2
-	BSET	IEC1, #13
-;INTERRUPTS.c,26 :: 		}
-L_interrupt1_null0:
-;INTERRUPTS.c,28 :: 		}
-L_end_interrupt1_null:
-	POP	W11
-	POP	W10
+	BRA NZ	L_interrupt10
+;INTERRUPTS.c,21 :: 		}
+L_end_interrupt1:
 	MOV	#26, W0
 	REPEAT	#12
 	POP	[W0--]
@@ -72,9 +33,9 @@ L_end_interrupt1_null:
 	POP	50
 	POP	DSWPAG
 	RETFIE
-; end of _interrupt1_null
+; end of _interrupt1
 
-_interrupt2_safety1:
+_interrupt2:
 	PUSH	DSWPAG
 	PUSH	50
 	PUSH	RCOUNT
@@ -83,26 +44,26 @@ _interrupt2_safety1:
 	REPEAT	#12
 	PUSH	[W0++]
 
-;INTERRUPTS.c,31 :: 		void interrupt2_safety1() iv 0x000004E ics ICS_AUTO {
-;INTERRUPTS.c,33 :: 		IFS1.INT2IF = 0;
+;INTERRUPTS.c,24 :: 		void interrupt2() iv 0x000004E ics ICS_AUTO {
+;INTERRUPTS.c,26 :: 		IFS1.INT2IF = 0;
 	PUSH	W10
 	PUSH	W11
 	BCLR	IFS1, #13
-;INTERRUPTS.c,35 :: 		if (PORTD.F4 == 1) {
+;INTERRUPTS.c,28 :: 		if (PORTD.F4 == 1) {
 	BTSS	PORTD, #4
-	GOTO	L_interrupt2_safety17
-;INTERRUPTS.c,37 :: 		Motor_Command(STOP, sizeof(STOP));
+	GOTO	L_interrupt22
+;INTERRUPTS.c,30 :: 		MOTOR_COMMAND(STOP, sizeof(STOP));
 	MOV	#9, W11
 	MOV	#lo_addr(INTERRUPTS_STOP), W10
-	CALL	_Motor_Command
-;INTERRUPTS.c,40 :: 		IEC1.INT2IE = 0;
+	CALL	_MOTOR_COMMAND
+;INTERRUPTS.c,33 :: 		IEC1.INT2IE = 0;
 	BCLR	IEC1, #13
-;INTERRUPTS.c,41 :: 		IEC3.INT3IE = 1;
+;INTERRUPTS.c,34 :: 		IEC3.INT3IE = 1;
 	BSET.B	IEC3, #5
-;INTERRUPTS.c,42 :: 		}
-L_interrupt2_safety17:
-;INTERRUPTS.c,43 :: 		}
-L_end_interrupt2_safety1:
+;INTERRUPTS.c,35 :: 		}
+L_interrupt22:
+;INTERRUPTS.c,36 :: 		}
+L_end_interrupt2:
 	POP	W11
 	POP	W10
 	MOV	#26, W0
@@ -113,9 +74,9 @@ L_end_interrupt2_safety1:
 	POP	50
 	POP	DSWPAG
 	RETFIE
-; end of _interrupt2_safety1
+; end of _interrupt2
 
-_interrupt3_safety2:
+_interrupt3:
 	PUSH	DSWPAG
 	PUSH	50
 	PUSH	RCOUNT
@@ -124,24 +85,24 @@ _interrupt3_safety2:
 	REPEAT	#12
 	PUSH	[W0++]
 
-;INTERRUPTS.c,45 :: 		void interrupt3_safety2() iv 0x000007E ics ICS_AUTO {
-;INTERRUPTS.c,47 :: 		IFS1.INT3IF = 0; // Clear interrupt saftey 2 bit
+;INTERRUPTS.c,38 :: 		void interrupt3() iv 0x000007E ics ICS_AUTO {
+;INTERRUPTS.c,40 :: 		IFS1.INT3IF = 0; // Clear interrupt saftey 2 bit
 	PUSH	W10
 	PUSH	W11
 	BCLR.B	IFS1, #5
-;INTERRUPTS.c,49 :: 		if (PORTD.F5 == 1) {
+;INTERRUPTS.c,42 :: 		if (PORTD.F5 == 1) {
 	BTSS	PORTD, #5
-	GOTO	L_interrupt3_safety28
-;INTERRUPTS.c,51 :: 		Motor_Command(STOP, sizeof(STOP));
+	GOTO	L_interrupt33
+;INTERRUPTS.c,44 :: 		MOTOR_COMMAND(STOP, sizeof(STOP));
 	MOV	#9, W11
 	MOV	#lo_addr(INTERRUPTS_STOP), W10
-	CALL	_Motor_Command
-;INTERRUPTS.c,54 :: 		IEC3.INT3IE = 0; // Disable interrupt saftey 2
+	CALL	_MOTOR_COMMAND
+;INTERRUPTS.c,47 :: 		IEC3.INT3IE = 0; // Disable interrupt saftey 2
 	BCLR.B	IEC3, #5
-;INTERRUPTS.c,55 :: 		}
-L_interrupt3_safety28:
-;INTERRUPTS.c,57 :: 		}
-L_end_interrupt3_safety2:
+;INTERRUPTS.c,48 :: 		}
+L_interrupt33:
+;INTERRUPTS.c,51 :: 		}
+L_end_interrupt3:
 	POP	W11
 	POP	W10
 	MOV	#26, W0
@@ -152,4 +113,4 @@ L_end_interrupt3_safety2:
 	POP	50
 	POP	DSWPAG
 	RETFIE
-; end of _interrupt3_safety2
+; end of _interrupt3

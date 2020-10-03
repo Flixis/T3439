@@ -25,19 +25,18 @@ main
 			UART1_Data_Ready
 			UART1_Read
 		strcmp
-		Motor_Command
+		MOTOR_COMMAND
 			UART_Set_Active
 			UART3_Write
 		UART1_Write_Text
 			UART1_Write
-interrupt3_safety2
-	Motor_Command
-interrupt2_safety1
-	Motor_Command
-interrupt1_null
-	Motor_Command
+interrupt3
+	MOTOR_COMMAND
+interrupt2
+	MOTOR_COMMAND
+interrupt1
 	GET_CURRENT_POS
-		Motor_Command
+		MOTOR_COMMAND
 		UART3_Data_Ready
 		UART3_Read
 		UART1_Write

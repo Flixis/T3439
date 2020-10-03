@@ -4,8 +4,9 @@
 
 
 void GET_COMMANDS();
-void Motor_Command(char* data_get, int data_len);
+void MOTOR_COMMAND(char* data_get, int data_len);
 void GET_CURRENT_POS();
+int HEX2COMP(char* hex);
 #line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/commands.h"
 
 
@@ -107,38 +108,35 @@ static unsigned char STOP[] = {
 
 
 
-void interrupt1_null();
-void interrupt2_safety1();
-void interrupt3_safety2();
-#line 6 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/INTERRUPTS.c"
-void interrupt1_null() iv 0x000003C ics ICS_AUTO {
+void interrupt1();
+void interrupt2();
+void interrupt3();
+
+int _temp_flag;
+#line 8 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/INTERRUPTS.c"
+_temp_flag = 0;
+
+void interrupt1() iv 0x000003C ics ICS_AUTO {
 
  IFS1.INT1IF = 0;
- if (PORTD.F3 == 1) {
-#line 15 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/INTERRUPTS.c"
- Motor_Command(STOP, sizeof(STOP));
- Delay_ms(25);
  GET_CURRENT_POS();
- Delay_ms(25);
- Motor_Command(SET_0_POS, sizeof(SET_0_POS));
- Delay_ms(50);
- Motor_Command(ROLAT5, sizeof(ROLAT5));
+ _temp_flag = 1;
 
 
- IEC1.INT1IE = 0;
- IEC1.INT2IE = 1;
- }
+
+
+
 
 }
 
 
-void interrupt2_safety1() iv 0x000004E ics ICS_AUTO {
+void interrupt2() iv 0x000004E ics ICS_AUTO {
 
  IFS1.INT2IF = 0;
 
  if (PORTD.F4 == 1) {
 
- Motor_Command(STOP, sizeof(STOP));
+ MOTOR_COMMAND(STOP, sizeof(STOP));
 
 
  IEC1.INT2IE = 0;
@@ -146,16 +144,17 @@ void interrupt2_safety1() iv 0x000004E ics ICS_AUTO {
  }
 }
 
-void interrupt3_safety2() iv 0x000007E ics ICS_AUTO {
+void interrupt3() iv 0x000007E ics ICS_AUTO {
 
  IFS1.INT3IF = 0;
 
  if (PORTD.F5 == 1) {
 
- Motor_Command(STOP, sizeof(STOP));
+ MOTOR_COMMAND(STOP, sizeof(STOP));
 
 
  IEC3.INT3IE = 0;
  }
+
 
 }

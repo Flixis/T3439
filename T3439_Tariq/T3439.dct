@@ -78,6 +78,7 @@ _t2ck
 _t3ck
 _t4ck
 _t5ck
+_temp_flag
 _u1cts
 _u1rts
 _u1rx
@@ -3464,6 +3465,7 @@ damode1
 damode1
 damode1
 damode1
+data_temp
 dbufwf
 dbufwf
 dbufwf
@@ -4330,6 +4332,7 @@ halfsec
 halfsec
 halfsec_bit
 hex
+hex2comp
 highif
 highif
 highif
@@ -5804,9 +5807,9 @@ intcon1
 intcon1bits
 intcon2
 intcon2bits
-interrupt1_null
-interrupt2_safety1
-interrupt3_safety2
+interrupt1
+interrupt2
+interrupt3
 inttohex
 inttostr
 inttostrwithzeros
@@ -14181,6 +14184,7 @@ x9
 x9
 x9_bit
 xtoi
+y
 z
 z
 z_bit
