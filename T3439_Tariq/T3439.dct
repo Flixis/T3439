@@ -2729,7 +2729,6 @@ coe_cm2con_bit
 coe_cm3con_bit
 compiledate
 compiletime
-completedtask
 con
 con
 con
@@ -4263,7 +4262,7 @@ gcstat
 gcstat_bit
 gcstat_i2c1stat_bit
 gcstat_i2c2stat_bit
-get_command
+get_commands
 get_current_pos
 get_fosc_khz
 get_fosc_per_cyc
@@ -6730,7 +6729,6 @@ nullw_dmach2_bit
 nullw_dmach3_bit
 nullw_dmach4_bit
 nullw_dmach5_bit
-nutsdeez
 nvcfg0
 nvcfg0
 nvcfg0_ad1con2_bit

@@ -17,16 +17,18 @@ Value=2000
 Value=
 [FILES]
 File0=T3439.c
-Count=1
+File1=FUNCTIONS.c
+Count=2
 [BINARIES]
 Count=0
 [IMAGES]
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-File0=T3439.c
-File1=COMMANDS.h
-Count=2
+File0=FUNCTIONS.c
+File1=FUNCTIONS.H
+File2=T3439.c
+Count=3
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -39,7 +41,8 @@ Count=0
 Count=0
 [HEADERS]
 File0=COMMANDS.h
-Count=1
+File1=FUNCTIONS.H
+Count=2
 [PLDS]
 Count=0
 [Useses]
@@ -54,7 +57,7 @@ Count=7
 [EXPANDED_NODES]
 0=T3439.mcpds
 1=Sources
-3=Header Files
+4=Header Files
 Count=3
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries

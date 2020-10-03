@@ -1,15 +1,17 @@
-0	1	mikroCdsPIC.exe -MSF -DBG -pP24FJ128GA306 -DL -SSA -O11111114 -fo16 -N"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\T3439.mcpds" -SP"H:\Programming\mikroC PRO for dsPIC\Defs\" -SP"H:\Programming\mikroC PRO for dsPIC\Uses\" -SP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" -IP"H:\Programming\mikroC PRO for dsPIC\Uses\" -IP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" "T3439.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_Conversions.mcl" "__Lib_UART_1234_p24_p33.mcl" "__Lib_PPS_24FJ128GA306.mcl"	 
+0	1	mikroCdsPIC.exe -MSF -DBG -pP24FJ128GA306 -DL -SSA -O11111114 -fo16 -N"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\T3439.mcpds" -SP"H:\Programming\mikroC PRO for dsPIC\Defs\" -SP"H:\Programming\mikroC PRO for dsPIC\Uses\" -SP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" -IP"H:\Programming\mikroC PRO for dsPIC\Uses\" -IP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" "T3439.c" "FUNCTIONS.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_Conversions.mcl" "__Lib_UART_1234_p24_p33.mcl" "__Lib_PPS_24FJ128GA306.mcl"	 
 diagnostics: 0	121	Loading...	 
 diagnostics: 0	122	Compilation Started	stdbool.h
 hint: 0	1004	interrupt handler (interrupt1 at 0x003C)	T3439.c
 hint: 0	1004	interrupt handler (interrupt2_low at 0x004E)	T3439.c
 hint: 0	1004	interrupt handler (interrupt3 at 0x007E)	T3439.c
-diagnostics: 226	123	Compiled Successfully	T3439.c
-diagnostics: 0	127	All files Compiled in 47 ms	 
+diagnostics: 118	123	Compiled Successfully	T3439.c
+diagnostics: 0	122	Compilation Started	commands.h
+diagnostics: 92	123	Compiled Successfully	FUNCTIONS.c
+diagnostics: 0	127	All files Compiled in 93 ms	 
 hint: 0	1144	Used RX (bytes): 32 (100%)   Free RX (bytes): 0 (0%)	Used RX (bytes): 32 (100%)   Free RX (bytes): 0 (0%)
-hint: 0	1144	Static RAM (bytes): 289   Dynamic RAM (bytes): 7902	Static RAM (bytes): 289   Dynamic RAM (bytes): 7902
-hint: 0	1144	Used ROM (bytes): 3612 (4%)  Free ROM (bytes): 84444 (96%)	Used ROM (bytes): 3612 (4%)  Free ROM (bytes): 84444 (96%)
+hint: 0	1144	Static RAM (bytes): 332   Dynamic RAM (bytes): 7860	Static RAM (bytes): 332   Dynamic RAM (bytes): 7860
+hint: 0	1144	Used ROM (bytes): 3625 (4%)  Free ROM (bytes): 84431 (96%)	Used ROM (bytes): 3625 (4%)  Free ROM (bytes): 84431 (96%)
 diagnostics: 0	125	Project Linked Successfully	T3439.mcpds
 diagnostics: 0	128	Linked in 141 ms	 
-diagnostics: 0	129	Project 'T3439.mcpds' completed: 313 ms	 
-diagnostics: 0	103	Finished successfully: 03 okt 2020, 15:30:00	T3439.mcpds
+diagnostics: 0	129	Project 'T3439.mcpds' completed: 359 ms	 
+diagnostics: 0	103	Finished successfully: 03 okt 2020, 17:48:57	T3439.mcpds

@@ -19,7 +19,7 @@ main
 			Unlock_IOLOCK
 			Lock_IOLOCK
 	Lock_IOLOCK
-	Get_Command
+	GET_COMMANDS
 		UART1_Data_Ready
 		UART1_Read_Text
 			UART1_Data_Ready
