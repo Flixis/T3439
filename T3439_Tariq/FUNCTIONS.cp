@@ -25,8 +25,6 @@ static char COMMAND_START[8] = "START";
 static char COMMAND_RESET[8] = "RESET";
 
 
-static char TOK_OK_SF1[8] = "SF1_OK";
-
 
 
 static unsigned char GET_POS[] = {

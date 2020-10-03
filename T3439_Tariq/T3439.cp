@@ -25,8 +25,6 @@ static char COMMAND_START[8] = "START";
 static char COMMAND_RESET[8] = "RESET";
 
 
-static char TOK_OK_SF1[8] = "SF1_OK";
-
 
 
 static unsigned char GET_POS[] = {
@@ -105,17 +103,54 @@ static unsigned char STOP[] = {
  0x0e
 };
 #line 1 "h:/programming/t3439/testok design nieuw/firmware manuals/t3439_tariq/interrupts.h"
-
-
-
-void interrupt1();
-void interrupt2();
-void interrupt3();
-
-int _temp_flag;
-#line 9 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
+#line 11 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/T3439.c"
 char CompileDate[] =  "Oct  3 2020" ;
-char CompileTime[] =  "21:33:13" ;
+char CompileTime[] =  "22:50:17" ;
+
+int xx = 1;
+int yy = 1;
+
+
+
+int _flag_1 = 0;
+
+void interrupt1() iv 0x000003C ics ICS_AUTO {
+
+ IFS1.INT1IF = 0;
+ _flag_1 = 1;
+
+
+
+ IEC1.INT1IE = 0;
+ IEC1.INT2IE = 1;
+
+}
+
+int _flag_2 = 0;
+
+void interrupt2() iv 0x000004E ics ICS_AUTO {
+
+ IFS1.INT2IF = 0;
+ _flag_2 = 1;
+ MOTOR_COMMAND(RORAT5, sizeof(RORAT5));
+
+ IEC1.INT1IE = 1;
+ IEC1.INT2IE = 0;
+ IEC3.INT3IE = 1;
+
+}
+
+int _flag_3 = 0;
+void interrupt3() iv 0x000007E ics ICS_AUTO {
+
+ IFS1.INT3IF = 0;
+ _flag_3 = 1;
+
+ IEC1.INT1IE = 0;
+ IEC1.INT2IE = 0;
+ IEC3.INT3IE = 0;
+}
+
 
 
 void main() {
@@ -155,11 +190,7 @@ void main() {
 
 
  INTCON1.NSTDIS = 0;
- INTCON.GIE = 1;
- INTCON1.INT1EP = 0;
 
- IEC3.INT3IE = 0;
- IEC1.INT2IE = 0;
 
 
 
@@ -168,21 +199,46 @@ void main() {
 
  GET_COMMANDS();
 
- if(PORTD.F4 == 0 && PORTD.F5 == 0){
+ if (PORTD.F4 == 0 && PORTD.F5 == 0) {
  IEC1.INT1IE = 1;
  }
 
- if(_temp_flag == 1){
- if(PORTD.F3 == 0){
+ if (_flag_1 == 1) {
  GET_CURRENT_POS();
- _temp_flag = 0;
+ _flag_1 = 0;
+
+ }
+
+ if (_flag_2 == 1 && PORTD.F4 == 1) {
+ GET_CURRENT_POS();
+ _flag_2 = 0;
+ delay_ms(150);
+ MOTOR_COMMAND(RORAT5, sizeof(RORAT5));
+ while (xx) {
+ if (PORTD.F4 == 0) {
+ GET_CURRENT_POS();
+ xx = 0;
+
+
+
  }
  }
+ }
+
+ if (_flag_3 == 1&& PORTD.F5 == 1) {
+ GET_CURRENT_POS();
+ _flag_3 = 0;
+ delay_ms(150);
+ MOTOR_COMMAND(RORAT5, sizeof(RORAT5));
+ while (yy) {
+ if (PORTD.F5 == 0) {
+ GET_CURRENT_POS();
+ yy = 0;
 
 
-
-
-
+ }
+ }
+ }
 
  }
 }

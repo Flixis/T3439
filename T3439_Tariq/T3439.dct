@@ -27,6 +27,9 @@ _compare_le_fp
 _default_port
 _div_fp
 _divide_32x32
+_flag_1
+_flag_2
+_flag_3
 _float2longint
 _float2longword
 _ic1
@@ -78,7 +81,6 @@ _t2ck
 _t3ck
 _t4ck
 _t5ck
-_temp_flag
 _u1cts
 _u1rts
 _u1rx
@@ -14184,7 +14186,9 @@ x9
 x9
 x9_bit
 xtoi
+xx
 y
+yy
 z
 z
 z_bit

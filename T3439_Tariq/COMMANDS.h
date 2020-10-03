@@ -14,8 +14,6 @@ static char COMMMAND_STOP[10] = "STOP";
 static char COMMAND_START[8] = "START";
 static char COMMAND_RESET[8] = "RESET";
 
-//Test-Track response
-static char TOK_OK_SF1[8] = "SF1_OK";
 
 //Commands Motor driver
 //Get current encoder position

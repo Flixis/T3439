@@ -30,13 +30,13 @@ main
 			UART3_Write
 		UART1_Write_Text
 			UART1_Write
-interrupt3
-	MOTOR_COMMAND
-interrupt2
-	MOTOR_COMMAND
-interrupt1
 	GET_CURRENT_POS
 		MOTOR_COMMAND
 		UART3_Data_Ready
 		UART3_Read
 		UART1_Write
+	MOTOR_COMMAND
+interrupt3
+interrupt2
+	MOTOR_COMMAND
+interrupt1
