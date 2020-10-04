@@ -4,38 +4,6 @@
 
 
 /* Definitions Chars/ints for calculations related to UART*/
-char receive;
-char input[16];
-void GET_COMMANDS() {
-  //if there is data do something.
-  if (uart1_Data_Ready()) {
-    uart1_read_text(input, "\r\n", sizeof(input)); // Read String data up to 10th charachter if \r if found stop looking and put data in input.
-    //compare what we got in input to whatever we define as a commmand up at the variables.
-    if (strcmp(input, COMMAND_GET_POS) == 0) {
-      MOTOR_COMMAND(GET_POS, sizeof(GET_POS));
-    } else if (strcmp(input, COMMMAND_SET_0_POS) == 0) {
-      MOTOR_COMMAND(SET_0_POS, sizeof(SET_0_POS));
-    } else if (strcmp(input, COMMMAND_MV_ABS_0) == 0) {
-      MOTOR_COMMAND(MV_ABS_0, sizeof(MV_ABS_0));
-    } else if (strcmp(input, COMMMAND_RORAT5) == 0) {
-      MOTOR_COMMAND(RORAT5, sizeof(RORAT5));
-    } else if (strcmp(input, COMMMAND_ROLAT5) == 0) {
-      MOTOR_COMMAND(ROLAT5, sizeof(ROLAT5));
-    } else if (strcmp(input, COMMAND_START) == 0) {
-      /*Actual T3439 testing routine*/
-      //Start by moving the UUT right
-      MOTOR_COMMAND(ROLAT5, sizeof(ROLAT5));
-
-    } else if (strcmp(input, COMMMAND_STOP) == 0) {
-      uart1_write_text("Stopped!");
-      MOTOR_COMMAND(STOP, sizeof(STOP));
-    } else if (strcmp(input, COMMAND_RESET) == 0) {
-      asm {
-        reset
-      }
-    } else {}
-  }
-}
 
 /*This function is to make the Hex commands somewhat usuable and readable in the code.
 It just loops over the Hex values in the Array, Making sure to get all data by using sizeof().

@@ -6,7 +6,7 @@ Value=0
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=FUNCTIONS.c
+Value=T3439.c
 [USE_EEPROM]
 Value=0
 [USE_HEAP]
@@ -18,8 +18,7 @@ Value=
 [FILES]
 File0=T3439.c
 File1=FUNCTIONS.c
-File2=INTERRUPTS.c
-Count=3
+Count=2
 [BINARIES]
 Count=0
 [IMAGES]
@@ -27,10 +26,7 @@ Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
 File0=T3439.c
-File1=functions.h
-File2=INTERRUPTS.c
-File3=FUNCTIONS.c
-Count=4
+Count=1
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -44,8 +40,7 @@ Count=0
 [HEADERS]
 File0=COMMANDS.h
 File1=FUNCTIONS.H
-File2=INTERRUPTS.H
-Count=3
+Count=2
 [PLDS]
 Count=0
 [Useses]
@@ -60,7 +55,7 @@ Count=7
 [EXPANDED_NODES]
 0=T3439.mcpds
 1=Sources
-5=Header Files
+4=Header Files
 Count=3
 [LIB_EXPANDED_NODES]
 0=mikroE Libraries
@@ -107,4 +102,4 @@ Count=3
 1570=FT812
 1917=mikroSDK Libraries
 1918=mikroBUS Board Definition API
-Count=44
+Count=45

@@ -3,7 +3,6 @@
 
 
 
-void GET_COMMANDS();
 void MOTOR_COMMAND(char* data_get, int data_len);
 void GET_CURRENT_POS();
 int HEX2COMP(char* hex);
@@ -102,40 +101,7 @@ static unsigned char STOP[] = {
  0x0a,
  0x0e
 };
-#line 7 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
-char receive;
-char input[16];
-void GET_COMMANDS() {
-
- if (uart1_Data_Ready()) {
- uart1_read_text(input, "\r\n", sizeof(input));
-
- if (strcmp(input, COMMAND_GET_POS) == 0) {
- MOTOR_COMMAND(GET_POS, sizeof(GET_POS));
- } else if (strcmp(input, COMMMAND_SET_0_POS) == 0) {
- MOTOR_COMMAND(SET_0_POS, sizeof(SET_0_POS));
- } else if (strcmp(input, COMMMAND_MV_ABS_0) == 0) {
- MOTOR_COMMAND(MV_ABS_0, sizeof(MV_ABS_0));
- } else if (strcmp(input, COMMMAND_RORAT5) == 0) {
- MOTOR_COMMAND(RORAT5, sizeof(RORAT5));
- } else if (strcmp(input, COMMMAND_ROLAT5) == 0) {
- MOTOR_COMMAND(ROLAT5, sizeof(ROLAT5));
- } else if (strcmp(input, COMMAND_START) == 0) {
-
-
- MOTOR_COMMAND(ROLAT5, sizeof(ROLAT5));
-
- } else if (strcmp(input, COMMMAND_STOP) == 0) {
- uart1_write_text("Stopped!");
- MOTOR_COMMAND(STOP, sizeof(STOP));
- } else if (strcmp(input, COMMAND_RESET) == 0) {
- asm {
- reset
- }
- } else {}
- }
-}
-#line 44 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
+#line 12 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
 int i;
 void MOTOR_COMMAND(unsigned char * data_get, int data_len) {
  for (i = 0; i < data_len; i++) {
@@ -153,7 +119,7 @@ int y;
 char data_temp[127];
 unsigned char hex[127];
 void GET_CURRENT_POS() {
-#line 71 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
+#line 39 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
  U1STA.UTXEN = 0;
  U1STA.OERR = 1;
  U3STA.OERR = 1;
@@ -162,7 +128,7 @@ void GET_CURRENT_POS() {
  U1STA.OERR = 0;
  U3STA.OERR = 0;
  Motor_Command(GET_POS, sizeof(GET_POS));
-#line 84 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
+#line 52 "H:/Programming/T3439/TestOK design nieuw/Firmware Manuals/T3439_Tariq/FUNCTIONS.c"
  while (x <= 9) {
  for (i = 0; i < uart3_data_ready(); i++) {
  hex[i] = uart3_read();

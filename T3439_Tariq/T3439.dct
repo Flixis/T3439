@@ -4266,7 +4266,6 @@ gcstat
 gcstat_bit
 gcstat_i2c1stat_bit
 gcstat_i2c2stat_bit
-get_commands
 get_current_pos
 get_fosc_khz
 get_fosc_per_cyc

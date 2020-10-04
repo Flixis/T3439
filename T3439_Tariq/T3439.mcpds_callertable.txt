@@ -19,24 +19,26 @@ main
 			Unlock_IOLOCK
 			Lock_IOLOCK
 	Lock_IOLOCK
-	GET_COMMANDS
+	UART1_Data_Ready
+	UART1_Read_Text
 		UART1_Data_Ready
-		UART1_Read_Text
-			UART1_Data_Ready
-			UART1_Read
-		strcmp
-		MOTOR_COMMAND
-			UART_Set_Active
-			UART3_Write
-		UART1_Write_Text
-			UART1_Write
+		UART1_Read
+	strcmp
+	MOTOR_COMMAND
+		UART_Set_Active
+		UART3_Write
+	UART1_Write_Text
+		UART1_Write
+interrupt3
 	GET_CURRENT_POS
 		MOTOR_COMMAND
 		UART3_Data_Ready
 		UART3_Read
 		UART1_Write
 	MOTOR_COMMAND
-interrupt3
 interrupt2
+	UART1_Write_Text
+	GET_CURRENT_POS
 	MOTOR_COMMAND
 interrupt1
+	GET_CURRENT_POS
