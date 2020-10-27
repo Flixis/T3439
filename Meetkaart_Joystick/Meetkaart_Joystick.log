@@ -1,0 +1,17 @@
+0	1	mikroCdsPIC.exe -MSF -DBG -pP24FJ128GA306 -DL -SSA -O11111114 -fo16 -N"C:\Users\Jaspe\OneDrive\Documenten\Meetkaart_Joystick\Meetkaart_Joystick.mcpds" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for dsPIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for dsPIC\Uses\" -SP"C:\Users\Jaspe\OneDrive\Documenten\Meetkaart_Joystick\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for dsPIC\Uses\" -IP"C:\Users\Jaspe\OneDrive\Documenten\Meetkaart_Joystick\" "MEETKAART_V1_0_joysticks.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_Conversions.mcl" "__Lib_SPI_12.mcl" "__Lib_UART_1234_p24_p33.mcl" "__Lib_PPS_24FJ128GA306.mcl"	 
+diagnostics: 0	121	Loading...	 
+diagnostics: 0	122	Compilation Started	MEETKAART_V1_0_joysticks.c
+hint: 2	1163	Variable 'output' has been declared, but not used	MEETKAART_V1_0_joysticks.c
+hint: 3	1163	Variable 'Command' has been declared, but not used	MEETKAART_V1_0_joysticks.c
+diagnostics: 950	123	Compiled Successfully	MEETKAART_V1_0_joysticks.c
+hint: 5	1164	Variable 'Spi_Receive' has been eliminated by optimizer	MEETKAART_V1_0_joysticks.c
+hint: 41	1164	Variable 'Cal_anout7_3' has been eliminated by optimizer	MEETKAART_V1_0_joysticks.c
+hint: 67	1164	Variable 'Cal_anout16_2' has been eliminated by optimizer	MEETKAART_V1_0_joysticks.c
+diagnostics: 0	127	All files Compiled in 421 ms	 
+hint: 0	1144	Used RX (bytes): 32 (100%)   Free RX (bytes): 0 (0%)	Used RX (bytes): 32 (100%)   Free RX (bytes): 0 (0%)
+hint: 0	1144	Static RAM (bytes): 332   Dynamic RAM (bytes): 7860	Static RAM (bytes): 332   Dynamic RAM (bytes): 7860
+hint: 0	1144	Used ROM (bytes): 5650 (6%)  Free ROM (bytes): 82406 (94%)	Used ROM (bytes): 5650 (6%)  Free ROM (bytes): 82406 (94%)
+diagnostics: 0	125	Project Linked Successfully	Meetkaart_Joystick.mcpds
+diagnostics: 0	128	Linked in 313 ms	 
+diagnostics: 0	129	Project 'Meetkaart_Joystick.mcpds' completed: 984 ms	 
+diagnostics: 0	103	Finished successfully: 04 jun 2020, 13:50:33	Meetkaart_Joystick.mcpds

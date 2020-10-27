@@ -27,6 +27,7 @@ main
 	MOTOR_COMMAND
 		UART_Set_Active
 		UART3_Write
+		UART3_Read
 	UART1_Write_Text
 		UART1_Write
 interrupt3
@@ -36,8 +37,7 @@ interrupt3
 		UART3_Read
 		UART1_Write
 	MOTOR_COMMAND
-interrupt2
-	UART1_Write_Text
+interrupt2_low
 	GET_CURRENT_POS
 	MOTOR_COMMAND
 interrupt1

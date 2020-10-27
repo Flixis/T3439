@@ -1,0 +1,42 @@
+//==========================================================================================
+// M3439A Test-ok standalone.
+// T.Dinmohamed
+//
+// 15-10-20
+// Revisie 001: Eerste revisie.
+//
+//==========================================================================================
+
+VAR #1;
+VAR #2;
+VAR #3;
+VAR #4;
+VAR #5;
+VAR #6;
+
+VAR #cnull;
+VAR #crechts;
+VAR #clinks;
+
+VAR #COM = 255;
+CONFIG_COM [ #COM ] BAUDRATE = 9600, EOL = CRLF;
+
+
+RUN "G:\\Archief\\M3400\\M3439\\M3439a\\TestOK design nieuw\\Firmware Manuals\\Test-ok\\test.bat";
+
+#1 = RECEIVE_COM [ #COM ] "*", TIMEOUT = 1000;
+#2 = RECEIVE_COM [ #COM ] "*", TIMEOUT = 1000;
+#3 = RECEIVE_COM [ #COM ] "*", TIMEOUT = 1000;
+#4 = RECEIVE_COM [ #COM ] "*", TIMEOUT = 1000;
+#5 = RECEIVE_COM [ #COM ] "*", TIMEOUT = 1000;
+#6 = RECEIVE_COM [ #COM ] "*", TIMEOUT = 1000;
+
+#cnull =  ((#1 + #4)/2);
+#crechts =  ((#2 + #3)/2);
+#clinks =  ((#6 + #5)/2);
+
+LOG #cnull;
+LOG #crechts;
+LOG #clinks;
+
+

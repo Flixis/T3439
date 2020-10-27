@@ -1,17 +1,17 @@
-0	1	mikroCdsPIC.exe -MSF -DBG -pP24FJ128GA306 -DL -SSA -O11111114 -fo16 -N"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\T3439.mcpds" -SP"H:\Programming\mikroC PRO for dsPIC\Defs\" -SP"H:\Programming\mikroC PRO for dsPIC\Uses\" -SP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" -IP"H:\Programming\mikroC PRO for dsPIC\Uses\" -IP"H:\Programming\T3439\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" "T3439.c" "FUNCTIONS.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_Conversions.mcl" "__Lib_UART_1234_p24_p33.mcl" "__Lib_PPS_24FJ128GA306.mcl"	 
+0	1	mikroCdsPIC.exe -MSF -DBG -pP24FJ128GA306 -DL -SSA -O11111114 -fo16 -N"\\disk1\Maindisk\Archief\M3400\M3439\M3439a\TestOK design nieuw\Firmware Manuals\T3439_Tariq\T3439.mcpds" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for dsPIC\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for dsPIC\Uses\" -SP"\\disk1\Maindisk\Archief\M3400\M3439\M3439a\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for dsPIC\Uses\" -IP"\\disk1\Maindisk\Archief\M3400\M3439\M3439a\TestOK design nieuw\Firmware Manuals\T3439_Tariq\" "T3439.c" "FUNCTIONS.C" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_Conversions.mcl" "__Lib_UART_1234_p24_p33.mcl" "__Lib_PPS_24FJ128GA306.mcl"	 
 diagnostics: 0	121	Loading...	 
 diagnostics: 0	122	Compilation Started	functions.h
 hint: 0	1004	interrupt handler (interrupt1 at 0x003C)	T3439.c
-hint: 0	1004	interrupt handler (interrupt2 at 0x004E)	T3439.c
+hint: 0	1004	interrupt handler (interrupt2_low at 0x004E)	T3439.c
 hint: 0	1004	interrupt handler (interrupt3 at 0x007E)	T3439.c
-diagnostics: 155	123	Compiled Successfully	T3439.c
-diagnostics: 0	122	Compilation Started	functions.h
-diagnostics: 118	123	Compiled Successfully	FUNCTIONS.c
-diagnostics: 0	127	All files Compiled in 78 ms	 
+diagnostics: 178	123	Compiled Successfully	T3439.c
+diagnostics: 0	122	Compilation Started	commands.h
+diagnostics: 55	123	Compiled Successfully	FUNCTIONS.C
+diagnostics: 0	127	All files Compiled in 250 ms	 
 hint: 0	1144	Used RX (bytes): 32 (100%)   Free RX (bytes): 0 (0%)	Used RX (bytes): 32 (100%)   Free RX (bytes): 0 (0%)
-hint: 0	1144	Static RAM (bytes): 256   Dynamic RAM (bytes): 7934	Static RAM (bytes): 256   Dynamic RAM (bytes): 7934
-hint: 0	1144	Used ROM (bytes): 3483 (4%)  Free ROM (bytes): 84573 (96%)	Used ROM (bytes): 3483 (4%)  Free ROM (bytes): 84573 (96%)
+hint: 0	1144	Static RAM (bytes): 111   Dynamic RAM (bytes): 8080	Static RAM (bytes): 111   Dynamic RAM (bytes): 8080
+hint: 0	1144	Used ROM (bytes): 3606 (4%)  Free ROM (bytes): 84450 (96%)	Used ROM (bytes): 3606 (4%)  Free ROM (bytes): 84450 (96%)
 diagnostics: 0	125	Project Linked Successfully	T3439.mcpds
-diagnostics: 0	128	Linked in 140 ms	 
-diagnostics: 0	129	Project 'T3439.mcpds' completed: 343 ms	 
-diagnostics: 0	103	Finished successfully: 04 okt 2020, 16:04:59	T3439.mcpds
+diagnostics: 0	128	Linked in 343 ms	 
+diagnostics: 0	129	Project 'T3439.mcpds' completed: 765 ms	 
+diagnostics: 0	103	Finished successfully: 23 okt 2020, 10:46:22	T3439.mcpds

@@ -1,0 +1,6 @@
+1 = done , int1 uit en int2_pos aan
+2 = done , int2_neg aan en int1_neg aan
+3 = 
+4 = 
+5 = 
+6 = 

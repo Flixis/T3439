@@ -1,84 +1,114 @@
-#include "FUNCTIONS.H"
+#include "FUNCTIONS.h"
 
-#include "COMMANDS.H"
-
+#include "COMMANDS.h"
 
 /*Code written by Tariq Dinmohamed*/
+
+/*This version works with hand movements, next is adding automated motor movements*/
+
+/* Definitions Chars/ints for calculations related to UART*/
+//Char for receiving
+char receive;
+char input[8];
 
 //Version control
 char CompileDate[] = __DATE__;
 char CompileTime[] = __TIME__;
 
-int xx = 1;
-int yy = 1;
+int _flag_1 = 1;
+int _flag_2 = 0;
+int _flag_3 = 0;
+int _flag_4 = 0;
+int _flag_5 = 0;
+int _flag_6 = 0;
 
-/* Definitions Chars/ints for calculations related to UART*/
-char receive;
-char input[16];
+//Chars for saving return data
+char Pos1data[] = {""};
+char Pos2data[] = {""};
+char Pos3data[] = {""};
+char Pos4data[] = {""};
+char Pos5data[] = {""};
+char Pos6data[] = {""};
 
-int _flag_1 = 0;
 //First interrupt mapped, Get from register 0x000003C(defined by datasheet). ICS is left at auto.
 void interrupt1() iv 0x000003C ics ICS_AUTO {
-  //Disable interrupt 1 and enable interrupt 2
-  IEC1.INT1IE = 0; // Disable interrupt nul bit
-  IEC1.INT2IE = 1; // Enable interrupt saftey 2
 
-  IFS1.INT1IF = 0;
-  GET_CURRENT_POS();
-  _flag_1 = 1;
-  //Clear the interrupt flag
+  if (_flag_1 == 1) {
+    GET_CURRENT_POS(Pos1data);
+    delay_ms(500);
+    _flag_1 = 0;
+    _flag_2 = 1;
 
+    //Disable interrupt 1 and enable interrupt 2
+    //Clear interrupt flag:
+    IFS1.INT1IF = 0; // Clear interrupt nul bit
+    IEC1.INT1IE = 0; // Disable interrupt nul bit
+    IEC1.INT2IE = 1; // Enable interrupt saftey 2
+  }
+  if (_flag_4 == 1) {
+    GET_CURRENT_POS(Pos4data);
+    _flag_4 = 0;
+    _flag_5 = 1;
+
+    //Clear interrupt flag:
+    IFS1.INT1IF = 0; // Clear interrupt nul bit
+    IEC1.INT1IE = 0; // Disable interrupt nul bit
+    IEC3.INT3IE = 1; // Enable interrupt saftey 2
+  }
 }
 
-int _flag_2 = 0;
 //Second interrupt mapped, Get from register 0x000004E(defined by datasheet). ICS is left at auto.
-void interrupt2() iv 0x000004E ics ICS_AUTO {
-  //Clear the interrupt flag
-  //IFS1.INT2IF = 0;
-  _flag_2 = 1;
+void interrupt2_low() iv 0x000004E ics ICS_AUTO {
 
-  uart1_write_text("interrupt2");
-
-  if (_flag_2 == 1 && PORTD.F4 == 1) {
-    uart1_write_text("flag2");
-    GET_CURRENT_POS();
+  if (PORTD.F4 == 1 && _flag_2 == 1) {
+    GET_CURRENT_POS(Pos2data);
     _flag_2 = 0;
-    delay_ms(150);
-    MOTOR_COMMAND(RORAT5, sizeof(RORAT5));
-    while (xx) {
-      if (PORTD.F4 == 0) {
-        GET_CURRENT_POS();
-        xx = 0;
-        /*Disable interrupt saftey 1, Enable interrupt saftey 2*/
-        IEC1.INT1IE = 1;
-        IEC1.INT2IE = 0;
-        IEC3.INT3IE = 1;
-      }
-    }
+    _flag_3 = 1;
+    delay_ms(300);
+    Motor_Command(RORAT5, sizeof(RORAT5));
+
+    IFS1.INT2IF = 0; // Clear Safety flag bit
+    INTCON2.INT2EP = 1; //Set Safety bit to negative edge detect.
+  }
+  if (PORTD.F4 == 0 && _flag_3 == 1) {
+    GET_CURRENT_POS(Pos3data);
+    _flag_3 = 0;
+    _flag_4 = 1;
+
+    IEC1.INT2IE = 0; // Disable interrupt saftey 2
+    IEC1.INT1IE = 1; // Enable interrupt nul bit
+
   }
 
 }
 
-int _flag_3 = 0;
 void interrupt3() iv 0x000007E ics ICS_AUTO {
-  //Clear the interrupt flag
-  IFS1.INT3IF = 0; // Clear interrupt saftey 2 bit
-  _flag_3 = 1;
 
-  if (_flag_3 && PORTD.F5 == 1) {
-    GET_CURRENT_POS();
-    _flag_3 = 0;
-    delay_ms(150);
-    MOTOR_COMMAND(RORAT5, sizeof(RORAT5));
-    while (yy) {
-      if (PORTD.F5 == 0) {
-        GET_CURRENT_POS();
-        yy = 0;
-        //Disable interrupt 3
-        IEC1.INT1IE = 0;
-        IEC1.INT2IE = 0;
-        IEC3.INT3IE = 0; // Disable interrupt saftey 2    
-      }
+  if (PORTD.F5 == 1 && _flag_5 == 1) {
+    GET_CURRENT_POS(Pos5data);
+    _flag_5 = 0;
+    _flag_6 = 1;
+    delay_ms(300);
+    Motor_Command(ROLAT5, sizeof(ROLAT5));
+
+    IFS1.INT3IF = 0; // Clear interrupt saftey 2 bit
+    INTCON2.INT3EP = 1; //Set Safety2 bit to negative edge detect
+  }
+  if (PORTD.F5 == 0 && _flag_6 == 1) {
+    GET_CURRENT_POS(Pos6data);
+    _flag_6 = 0;
+    delay_ms(50);
+    Motor_Command(STOP, sizeof(STOP));
+
+    IEC3.INT3IE = 0; // Enable interrupt saftey 2
+    IEC1.INT1IE = 1; // Disable interrupt nul bit
+    delay_ms(500);
+    
+    uart1_write_text
+    
+    
+    asm {
+        reset
     }
   }
 
@@ -101,7 +131,7 @@ void main() {
   UART1_Init(9600);
   UART3_Init(9600);
 
-  Delay_ms(1500);
+  Delay_ms(3000);
   LATB.F8 = 1;
 
   Unlock_IOLOCK();
@@ -122,35 +152,31 @@ void main() {
 
   //Interrupt nesting enable
   INTCON1.NSTDIS = 0;
-  
   //Interrupt enable bits
   IEC3.INT3IE = 0; // Disable interrupt saftey 2
   IEC1.INT2IE = 0; // Disable interrupt saftey 1
+  IEC1.INT1IE = 1; //Nul ENABLE TO START TEST
 
   while (1) {
-
     //if there is data do something.
-    if (uart1_Data_Ready()) {
-      uart1_read_text(input, "\r\n", sizeof(input)); // Read String data up to 10th charachter if \r if found stop looking and put data in input.
+    if (UART1_Data_Ready() > 0) {
+      uart1_read_text(input, "\r\n", 16); // Read String data up to 10th charachter if \r if found stop looking and put data in input.
+
       //compare what we got in input to whatever we define as a commmand up at the variables.
       if (strcmp(input, COMMAND_START) == 0) {
-        /*Actual T3439 testing routine*/
-        //Start by moving the UUT right
-        MOTOR_COMMAND(ROLAT5, sizeof(ROLAT5));
-
+        Motor_Command(ROLAT5, sizeof(ROLAT5));
       } else if (strcmp(input, COMMMAND_STOP) == 0) {
         uart1_write_text("Stopped!");
-        MOTOR_COMMAND(STOP, sizeof(STOP));
+        Motor_Command(STOP, sizeof(STOP));
       } else if (strcmp(input, COMMAND_RESET) == 0) {
         asm {
           reset
         }
-      } else {}
+      } else {
+        //uart1_write_text("Unrecognized command: "); //Failed to recognize.
+        //uart_write_text(input); //output failed command.
+      }
     }
-
-    if (PORTD.F4 == 0 && PORTD.F5 == 0) {
-      IEC1.INT1IE = 1; //Nul ENABLE TO START TEST    
-    }
-
   }
+
 }

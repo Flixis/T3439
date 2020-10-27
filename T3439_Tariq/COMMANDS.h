@@ -1,18 +1,13 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 /*Command Definitions*/
-
-//Commands if statements
-static char COMMAND_GET_POS[10] = "GET_POS";
-static char COMMMAND_SET_0_POS[16] = "SET_0_POS";
-static char COMMMAND_MV_ABS_0[12] = "MV_ABS_0";
-static char COMMMAND_RORAT5[10] = "RORAT5";
-static char COMMMAND_ROLAT5[10] = "ROLAT5";
-static char COMMMAND_STOP[10] = "STOP";
-
+static char COMMMAND_RORAT5[8] = "RORAT5";
+static char COMMMAND_ROLAT5[8] = "ROLAT5";
 //Commands that stars the normal testing sequence
 static char COMMAND_START[8] = "START";
 static char COMMAND_RESET[8] = "RESET";
+static char COMMMAND_STOP[8] = "STOP";
+
 
 
 //Commands Motor driver
@@ -27,19 +22,6 @@ static unsigned char GET_POS[] = {
   0x00,
   0x00,
   0x08
-};
-
-//Set zero point
-static unsigned char SET_0_POS[] = {
-  0x01,
-  0x05,
-  0x01,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x00,
-  0x07
 };
 
 //Move to absolute 0

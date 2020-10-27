@@ -1,0 +1,89 @@
+[Info     ] M3439A_GOLD, Serienummer  --
+[Info     ] TestEngine 4.2.0.0, Standalone V0.0
+[Info     ] Dongle 1767096507
+[Info     ] 15-10-2020  15:37:07
+[Info     ] 
+[Info     ] ==== 1-SensorTest.tdl ====
+[Debug    ] <    0> ************************************************************************************************
+[Debug    ] <    0> *** G:\Archief\M3400\M3439\M3439a\TestOK design nieuw\Firmware Manuals\Test-ok\1-SensorTest.tdl
+[Debug    ] <    0> ************************************************************************************************
+[Debug    ] <    0> ( 10)  VAR 1 
+[Debug    ] <    0> ( 11)  VAR 1_find 
+[Debug    ] <    0> ( 12)  VAR 1_join 
+[Debug    ] <    0> ( 13)  VAR 2 
+[Debug    ] <    0> ( 14)  VAR 3 
+[Debug    ] <    0> ( 15)  VAR 4 
+[Debug    ] <    0> ( 16)  VAR 5 
+[Debug    ] <    0> ( 17)  VAR 6 
+[Debug    ] <    0> ( 18)  VAR COM = 4
+[Debug    ] <   16> ( 19) CONFIG_COM [4] Channel = COM4, BaudRate = 9600, Parity = 0, Eol = 51, Timeout = NONEms	Success = 1
+[Debug    ] <   16> Transmit:    [\x53\x54\x41\x52\x54\x0D\x0A]	(7 bytes)  
+[Debug    ] <   16> ( 22) TRANSMIT_COM[4] "START"	Success = 1
+[Debug    ] <   16> Transmit:    [\x53\x54\x41\x52\x54\x0D\x0A]	(7 bytes)  
+[Debug    ] <   16> ( 23) TRANSMIT_COM[4] "START"	Success = 1
+[Debug    ] <   16> ( 25) CONFIG_COM [4] Channel = COM4, BaudRate = 9600, Parity = 0, Eol = 0, Timeout = NONEms	Success = 1
+[Info     ] Testuitvoer afgebroken
+[Debug    ] < 1688> ( 26) RECEIVE_COM[4] "*"
+[Afgekeurd] Commando afgebroken
+[Debug    ] < 1688> Een fout is opgetreden bij regel 26 in "1-SensorTest.tdl"
+[Debug    ] < 1688> ( 26) ASSIGN 1 = "", STRING
+[Info     ] 
+          *** TEST TIJD 1.688 sec *** 
+           
+[Resultaat] 
+          ***    AFGEKEURD    ***
+          
+[Info     ] 15-10-2020  15:37:09   (1.688 sec)
+[Info     ] Overige tests worden niet uitgevoerd!
+[Resultaat] 
+[Resultaat] ============================================================
+[Resultaat] ====          Een of meerdere tests AFGEKEURD           ====
+[Resultaat] ============================================================
+[Info     ] M3439A_GOLD, Serienummer  --
+[Info     ] Gefaalde testen worden herhaald
+[Info     ] TestEngine 4.2.0.0, Standalone V0.0
+[Info     ] Dongle 1767096507
+[Info     ] 15-10-2020  15:37:10
+[Info     ] 
+[Info     ] ==== 1-SensorTest.tdl ====
+[Debug    ] <    0> ************************************************************************************************
+[Debug    ] <    0> *** G:\Archief\M3400\M3439\M3439a\TestOK design nieuw\Firmware Manuals\Test-ok\1-SensorTest.tdl
+[Debug    ] <    0> ************************************************************************************************
+[Debug    ] <    0> ( 10)  VAR 1 
+[Debug    ] <    0> ( 11)  VAR 1_find 
+[Debug    ] <    0> ( 12)  VAR 1_join 
+[Debug    ] <    0> ( 13)  VAR 2 
+[Debug    ] <    0> ( 14)  VAR 3 
+[Debug    ] <    0> ( 15)  VAR 4 
+[Debug    ] <    0> ( 16)  VAR 5 
+[Debug    ] <    0> ( 17)  VAR 6 
+[Debug    ] <    0> ( 18)  VAR COM = 4
+[Debug    ] <    0> ( 19) CONFIG_COM [4] Channel = COM4, BaudRate = 9600, Parity = 0, Eol = 51, Timeout = NONEms	Success = 1
+[Debug    ] <    0> Transmit:    [\x53\x54\x41\x52\x54\x0D\x0A]	(7 bytes)  
+[Debug    ] <    0> ( 22) TRANSMIT_COM[4] "START"	Success = 1
+[Debug    ] <   16> Transmit:    [\x53\x54\x41\x52\x54\x0D\x0A]	(7 bytes)  
+[Debug    ] <   16> ( 23) TRANSMIT_COM[4] "START"	Success = 1
+[Debug    ] <   16> ( 25) CONFIG_COM [4] Channel = COM4, BaudRate = 9600, Parity = 0, Eol = 0, Timeout = NONEms	Success = 1
+[Debug    ] <   63> ( 26) RECEIVE_COM[4] "\x00d\x02\x00\x00\x00\x05n\x02\x0A"	Success = 1
+[Debug    ] <   63> ( 26) ASSIGN 1 = "\x00d\x02\x00\x00\x00\x05n\x02\x0A", STRING
+[Debug    ] < 2297> ( 27) RECEIVE_COM[4] "\x0D\x01\x00\x02\x01d\x06\xFF\xFF\xFE"	Success = 1
+[Debug    ] < 2297> ( 27) ASSIGN 2 = "\x0D\x01\x00\x02\x01d\x06\xFF\xFF\xFE", STRING
+[Debug    ] < 3516> ( 28) RECEIVE_COM[4] "\x1D\x0A\x0D\x86\x00\x02\x01d\x06\xFF"	Success = 1
+[Debug    ] < 3516> ( 28) ASSIGN 3 = "\x1D\x0A\x0D\x86\x00\x02\x01d\x06\xFF", STRING
+[Debug    ] < 3547> ( 29) RECEIVE_COM[4] "\xFF\xFE3\x0A\x0D\x00\x02\x01d\x06"	Success = 1
+[Debug    ] < 3547> ( 29) ASSIGN 4 = "\xFF\xFE3\x0A\x0D\x00\x02\x01d\x06", STRING
+[Debug    ] < 6000> ( 30) RECEIVE_COM[4] "\xFF\xFF\xFE9\x0A\x0D\xA2\x00\x02\x01"	Success = 1
+[Debug    ] < 6000> ( 30) ASSIGN 5 = "\xFF\xFF\xFE9\x0A\x0D\xA2\x00\x02\x01", STRING
+[Debug    ] < 7344> ( 31) RECEIVE_COM[4] "d\x06\xFF\xFF\xFF\xAF\x0A\x0D\x19\x00"	Success = 1
+[Debug    ] < 7344> ( 31) ASSIGN 6 = "d\x06\xFF\xFF\xFF\xAF\x0A\x0D\x19\x00", STRING
+[Info     ] 
+          *** TEST TIJD 7.344 sec *** 
+           
+[Resultaat] 
+          ***    GOEDGEKEURD    ***
+          
+[Info     ] 15-10-2020  15:37:17   (7.344 sec)
+[Resultaat] 
+[Resultaat] ============================================================
+[Resultaat] ====                    Alle tests GOED                 ====
+[Resultaat] ============================================================
