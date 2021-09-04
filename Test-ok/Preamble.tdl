@@ -1,0 +1,8 @@
+VAR #Hex;
+VAR #Array[];
+VAR #conv;
+VAR GLOBAL #COM_PSU = 67;
+VAR #COM = 68;
+CONFIG_COM [ #COM_PSU ] BAUDRATE = 9600, EOL = NONE;
+VAR #res;
+VAR #ignore;

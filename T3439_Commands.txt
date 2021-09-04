@@ -1,0 +1,11 @@
+//General moving commands
+"a" = Moves device till EXT_INT_1 is high, then it sets that POS as 0 inside the motor driver.
+"b" = Moves device left @ speed of 1 till EXT_INT_1 is low.
+"c" = Moves device right @ speed of 1 till EXT_INT_1 is low.
+"d" = Moves device left @ speed of 1 till EXT_INT_2 is high.
+"e" = Moves device right @ speed of 1 till EXT_INT_3 is high.
+"x" = Show firmware information
+"z" = Software reset device
+
+//Deprecated
+"f" = Rotate right @ speed of 5.

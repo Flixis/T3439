@@ -1,0 +1,6 @@
+FUNC_DEF "Strip_data" PARAMS ( #Input )
+    LOG #Input;
+    #Input = substring(#Input, 0, 6);
+    #Input = INT #Input;
+    RETURN (#Input);
+ENDFUNC;

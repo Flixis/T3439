@@ -1,0 +1,23 @@
+FUNC_DEF "Set_Voltage" PARAMS ( #Voltage)
+    
+    //VAR #COM_PSU = 17;
+    //CONFIG_COM [ #COM_PSU ] BAUDRATE = 9600, EOL = NONE;
+    //WAITMS 250;
+    
+    TRANSMIT_COM [ #COM_PSU ] "VSET1:#Voltage#";
+    WAITMS 50;
+    TRANSMIT_COM [ #COM_PSU ] "OUT1";
+    WAITMS 500;
+ENDFUNC;
+
+FUNC_DEF "Set_Current" PARAMS ( #Current )
+    
+    //VAR #COM_PSU = 17;
+    //CONFIG_COM [ #COM_PSU ] BAUDRATE = 9600, EOL = NONE;
+    //WAITMS 250;
+    
+    TRANSMIT_COM [ #COM_PSU ] "ISET1:#Current#";
+    WAITMS 50;
+    TRANSMIT_COM [ #COM_PSU ] "OUT1";
+    WAITMS 500;
+ENDFUNC;

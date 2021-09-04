@@ -1,0 +1,70 @@
+//==========================================================================================
+// M3439A Test-ok standalone.
+// T.Dinmohamed
+//
+// 28-7-21
+// Revisie 001: Eerste revisie.
+//
+//==========================================================================================
+// Config limits for N_Limits
+VAR #N_Limits_Target = 0.00;
+VAR #N_Limits_Min = -0.65;
+VAR #N_Limits_Max = 0.65;
+CONFIG_LIMITS [ "N_Limits" ] TARGET = #N_Limits_Target, LOW = #N_Limits_Min, HIGH = #N_Limits_Max;
+
+// Config limits for H_P_Limits
+VAR #H_P_Limits_Target = 5.00;
+VAR #H_P_Limits_Min = 4.70;
+VAR #H_P_Limits_Max = 5.30;
+CONFIG_LIMITS [ "H_P_Limits" ] TARGET = #H_P_Limits_Target, LOW = #H_P_Limits_Min, HIGH = #H_P_Limits_Max;
+
+// Config limits for H_N_Limits
+VAR #H_N_Limits_Target = -5.00;
+VAR #H_N_Limits_Min = -5.30;
+VAR #H_N_Limits_Max = -4.70;
+CONFIG_LIMITS [ "H_N_Limits" ] TARGET = #H_N_Limits_Target, LOW = #H_N_Limits_Min, HIGH = #H_N_Limits_Max;
+
+FUNC_CALL "Set_Voltage" ARGS ( "24" );
+FUNC_CALL "Set_Current" ARGS ( "1" );
+WAITMS 1000;
+CONFIG_COM [ #COM ] BAUDRATE = 9600, EOL = CRLF;
+
+//====================================move to zero pos and set it===========================
+TRANSMIT_COM [ #COM ] "a";
+WAITMS 4000;
+//====================================measure first led pos=================================
+TRANSMIT_COM [ #COM ] "b";
+#Hex = RECEIVE_COM [ #COM ] "#ignore:r5##res:r4#", SIZE = 9, TIMEOUT = 5000, LOG = ON, FORMAT = HEX;
+LOG "Res = #res#";
+#conv =  #res * 0.028;
+LOG "Nul Pos = #conv#";
+TEST_LIMITS [ "N_Limits" ] ON #conv ELSE CONTINUE, "Nul pos 1 fout, Controleer of de PCBA goed aangedrukt is", KVP = "Nul 1 pos", UNIT = "Graden";
+WAITMS 3000;
+//====================================measure second led pos=================================
+TRANSMIT_COM [ #COM ] "c";
+#Hex = RECEIVE_COM [ #COM ] "#ignore:r5##res:r4#", SIZE = 9, TIMEOUT = 5000, LOG = ON, FORMAT = HEX;
+LOG "Res = #res#";
+#conv =  #res * 0.028;
+LOG "Nul Neg = #conv#";
+TEST_LIMITS [ "N_Limits" ] ON #conv ELSE CONTINUE, "Nul pos 2 fout, Controleer of de PCBA goed aangedrukt is", KVP = "Nul 1 pos", UNIT = "Graden";
+WAITMS 3000;
+//==========================================================================================
+//====================================measure first safety pos=================================
+TRANSMIT_COM [ #COM ] "d";
+#Hex = RECEIVE_COM [ #COM ] "#ignore:r5##res:r4#", SIZE = 9, TIMEOUT = 20000, LOG = ON, FORMAT = HEX;
+LOG "Res = #res#";
+#conv =  #res * 0.028;
+LOG "Hoek Neg = #conv#";
+TEST_LIMITS [ "H_N_Limits" ] ON #conv ELSE CONTINUE, "Safety negatief fout, Controleer of de PCBA goed aangedrukt is", KVP = "Safety negatief pos", UNIT = "Graden";
+WAITMS 5000;
+//==========================================================================================
+//====================================measure second safety pos=================================
+TRANSMIT_COM [ #COM ] "e";
+#Hex = RECEIVE_COM [ #COM ] "#ignore:r5##res:r4#", SIZE = 9, TIMEOUT = 20000, LOG = ON, FORMAT = HEX;
+LOG "Res = #res#";
+#conv =  #res * 0.028;
+TEST_LIMITS [ "H_P_Limits" ] ON #conv ELSE CONTINUE, "Safety positief fout, Controleer of de PCBA goed aangedrukt is", KVP = "Safety positief pos", UNIT = "Graden";
+LOG "Hoek POS = #conv#";
+//====================================measure second safety pos=================================
+//TRANSMIT_COM [ #COM_PSU ] "OUT0";
+

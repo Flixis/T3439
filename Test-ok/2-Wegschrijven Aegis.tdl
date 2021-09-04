@@ -1,0 +1,29 @@
+//==========================================================================================
+//
+// Automatisch wegschrijven naar Aegis V2.01
+// fail na automatic failure toegevoegd ivm niet meer draaien script bij sommige producten bij alleen foute testen herhalen. 
+// 28-2-2018 MM
+//==========================================================================================
+
+LOG #_SERIAL_NUMBER_;
+LOG #_OPERATOR_CODE_;
+LOG #_HOST_NAME_;
+
+//IF ( #_NUM_OF_TESTS_ !=X aantal )
+//    FAIL "Niet alle tests zijn uitgevoerd!";
+//ELSE
+
+IF (#_PREVIOUS_TESTS_PASSED_ == 1 )
+    //--- Kijken of alle voorgaande testen goed zijn gegaan (waarde =1) 
+    RUN "C:\HTTPClient\\HTTPClient.exe uri=https://intranet.matas.nl/testtrack/tracktrace/status barcode=#_SERIAL_NUMBER_# status=-1 operator=#_OPERATOR_CODE_# workstation=#_HOST_NAME_#", HIDE = ON EXPECT == 200    ELSE ABORT;
+    LOG "Wegschrijven naar Aegis";
+    LOG "Passed #_SERIAL_NUMBER_#", INDENT = 4, RECORD = ON;
+ELSE
+    RUN "C:\HTTPClient\\HTTPClient.exe uri=https://intranet.matas.nl/testtrack/tracktrace/status barcode=#_SERIAL_NUMBER_# status=1 operator=#_OPERATOR_CODE_# workstation=#_HOST_NAME_#", HIDE = ON EXPECT == 200    ELSE ABORT;
+    LOG "Automatic failure";
+    LOG "Automatic failure #_SERIAL_NUMBER_#", INDENT = 4, RECORD = ON;
+    FAIL "Automatic failure";
+ENDIF;
+// ENDIF;
+
+
